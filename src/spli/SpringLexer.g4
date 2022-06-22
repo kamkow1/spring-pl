@@ -5,6 +5,8 @@ DO                  : 'do';
 END                 : 'end';
 RETURN              : ('return' | 'exit with');
 IF                  : 'if';
+ELSE                : 'else';
+ELIF                : 'elif';
 AND                 : 'and';
 OR                  : 'or';
 

@@ -13,6 +13,8 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
     private CallStack _stack = new();
 
+    private bool _lastConditionResult;
+
     public Visitor()
     {
         _builtinFunctions.Add("println", new Func<object?[]?, object?>(args => Println(args)));
@@ -156,7 +158,9 @@ public class Visitor : SpringParserBaseVisitor<Object?>
     {
         var condition = (bool)Visit(context.expression())!;
 
-        var statements = context.scope().statement();
+        _lastConditionResult = condition;
+
+        var statements = context.scope().statement(); 
 
         if (condition == true)
         {
@@ -175,7 +179,51 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             _stack.Pop();
         }
 
+        if (context.elif_statement() is {})
+        {
+            foreach(var elifStatement in context.elif_statement())
+                Visit(elifStatement);
+        }
+
+        if (context.else_statement() is {} && !_lastConditionResult)
+            Visit(context.else_statement());
+
         return null;
+    }
+
+    public override object? VisitElif_statement([NotNull] SpringParser.Elif_statementContext context)
+    {
+        var elifCondition = (bool)Visit(context.expression())!;
+        _lastConditionResult = elifCondition;
+
+        if (elifCondition! == true)
+        {
+            var activationRecord = new ActivationRecord();
+            _stack.Push(activationRecord);
+            foreach (var statement in context.scope().statement())
+            {
+                if (statement.return_statement() is {} returnStatement)
+                    return Visit(returnStatement.expression());
+                Visit(statement);
+            }
+            _stack.Pop();
+        }
+
+        return null;
+    }
+
+    public override object? VisitElse_statement([NotNull] SpringParser.Else_statementContext context)
+    {
+        var activationRecord = new ActivationRecord();
+        _stack.Push(activationRecord);
+        foreach (var statement in context.scope().statement())
+        {
+            if (statement.return_statement() is {} returnStatement)
+                return Visit(returnStatement.expression());
+            Visit(statement);
+        }
+
+        return _stack.Pop();
     }
 
     public override object VisitNegatedExpression([NotNull] SpringParser.NegatedExpressionContext context)

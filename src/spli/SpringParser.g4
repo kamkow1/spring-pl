@@ -16,7 +16,11 @@ statement       :   expression          TERMINATOR
                 |   function_def
                 |   if_statement;
 
-if_statement    :   IF expression DO scope END;
+if_statement    :   IF expression DO scope (elif_statement*)? else_statement? END;
+
+else_statement  :   ELSE DO scope;
+
+elif_statement  :   ELIF expression DO scope;
 
 return_statement :  RETURN expression;
 

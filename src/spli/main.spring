@@ -1,7 +1,11 @@
 def get_str(num) do
-    if $num == 5 and 3 == 7 do
+    if $num == 5 and !(3 == 7) do
         println "== 5";
+    elif $num == 9 do
+        println "== 9";
+    else do
+        println "could not match";
     end
 end
 
-get_str 5;
+get_str 10;
