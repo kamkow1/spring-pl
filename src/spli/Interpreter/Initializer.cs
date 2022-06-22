@@ -3,7 +3,7 @@ using spli.Interpreter;
 
 public static class Initializer
 {
-    public static void Run(string program, string filePath)
+    public static void Run(string program, string filePath, string[] args)
     {
         try
         {
@@ -27,9 +27,11 @@ public static class Initializer
             foreach(var p in (List<object?>)includePaths!)
                 includedCode += File.ReadAllText(p!.ToString()!) + "\n";
 
-            var fullCode = includedCode + program.Split(includes)[2] + (Path.GetFileName(filePath).Split(".")[0] == "main" ? "\n\nmain;" : "");
+            var arguments = string.Join(", ", args.Select(a => "\"" + a + "\"").ToArray());
 
-            Console.WriteLine(fullCode);
+            var fullCode = includedCode + 
+                program.Split(includes)[2] + 
+                (Path.GetFileName(filePath).Split(".")[0] == "main" ? $"\n\nmain [{arguments}];" : "");
 
             var programInputStream          = new AntlrInputStream(fullCode);
             var programLexer                = new SpringLexer(programInputStream);

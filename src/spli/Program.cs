@@ -1,4 +1,5 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Newtonsoft.Json;
 using spli.Cli.Commands;
 
 var app = new CommandLineApplication
@@ -10,6 +11,7 @@ var app = new CommandLineApplication
 
 app.HelpOption();
 
+var argsOption = app.Option("-a|--args", "adds commandline arguments to program", CommandOptionType.MultipleValue);
 
 app.Command(ExecCommand.CommandName, cmd => 
 {
@@ -17,13 +19,8 @@ app.Command(ExecCommand.CommandName, cmd =>
 
     var filePathArgument = cmd.Argument("[root]", "path to a spring file");
 
-    cmd.OnExecute(() => ExecCommand.Execute(filePathArgument));
-});
-
-app.OnExecute(() => 
-{
-    Console.WriteLine("finished executing");
-    return 0;
-});
+    cmd.OnExecute(() => ExecCommand.Execute(filePathArgument, argsOption.Values.ToArray()!));
+})
+.AddOption(argsOption);
 
 return app.Execute(args);

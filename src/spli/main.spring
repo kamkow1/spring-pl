@@ -2,8 +2,12 @@
     include "./to_import.spring";
 [/]
 
-def main() do
+def dostuff(arr) do
+    println $arr[1];
+end
 
-    fibonacci 20;
+def main(args) do
 
+    int $args[0] -> $amnt;
+    fibonacci $amnt;
 end
