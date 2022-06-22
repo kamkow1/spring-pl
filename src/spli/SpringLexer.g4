@@ -9,6 +9,10 @@ ELSE                : 'else';
 ELIF                : 'elif';
 AND                 : 'and';
 OR                  : 'or';
+LOOP                : 'loop';
+INSIDE              : 'inside';
+TO                  : 'to';
+WITH                : 'with';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;
@@ -40,6 +44,7 @@ MULT                : '*';
 DIV                 : '/';
 POW                 : '^';
 COLON               : ':';
+PIPE                : '|';
 
 IDENTIFIER          : ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A' .. 'Z' | '0'..'9' | '_')*;
 WHITESPACE          : [ \r\n\t]+    -> skip;

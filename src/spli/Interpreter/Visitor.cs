@@ -450,4 +450,85 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         return array[index];
     }
+
+    public override object? VisitLoop_statement([NotNull] SpringParser.Loop_statementContext context)
+    {
+        if (context.expression() is not {})
+        {
+            while(true)
+            {
+                var activationRecord = new ActivationRecord();
+
+                _stack.Push(activationRecord);
+                foreach (var statement in context.scope().statement())
+                {
+                    if (statement.return_statement() is {} returnStatement)
+                        return Visit(returnStatement.expression());
+                    Visit(statement);
+                }
+                _stack.Pop();
+            }
+        }
+
+        if (context.expression() is {})
+        {
+            var loopConfig = (LoopConfiguration)Visit(context.expression())!;
+
+            var isAscending = loopConfig.Left < loopConfig.Right;
+
+            if (isAscending)
+            {
+                for (var i = loopConfig.Left; i <= loopConfig.Right; ++i)
+                {
+                    var activationRecord = new ActivationRecord();
+
+                    activationRecord.SetItem(loopConfig.IteratorName, i);
+
+                    _stack.Push(activationRecord);
+                    foreach (var statement in context.scope().statement())
+                    {
+                        if (statement.return_statement() is {} returnStatement)
+                            return Visit(returnStatement.expression());
+                        Visit(statement);
+                    }
+                    _stack.Pop();
+                }
+            }
+            else
+            {
+                for (var i = loopConfig.Left; i >= loopConfig.Right; --i)
+                   {
+                       var activationRecord = new ActivationRecord();
+
+                       activationRecord.SetItem(loopConfig.IteratorName, i);
+
+                       _stack.Push(activationRecord);
+                       foreach (var statement in context.scope().statement())
+                       {
+                           if (statement.return_statement() is {} returnStatement)
+                               return Visit(returnStatement.expression());
+                           Visit(statement);
+                       }
+                       _stack.Pop();
+                   }   
+            }
+        }
+
+        return null;
+    }
+
+    public override object VisitForLoopExpression([NotNull] SpringParser.ForLoopExpressionContext context)
+    {
+        var left = (int)Visit(context.expression(0))!;
+        var right = (int)Visit(context.expression(1))!;
+
+        var iteratorName = (string)Visit(context.expression(2))!;
+
+        return new LoopConfiguration
+        {
+            Left = left,
+            Right = right,
+            IteratorName = iteratorName
+        };
+    }
 }

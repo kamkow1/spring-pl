@@ -14,7 +14,10 @@ statement       :   expression          TERMINATOR
                 |   assign_var          TERMINATOR
                 |   return_statement    TERMINATOR
                 |   function_def
-                |   if_statement;
+                |   if_statement
+                |   loop_statement;
+
+loop_statement  :   LOOP expression? DO scope END;
 
 if_statement    :   IF expression DO scope (elif_statement*)? else_statement? END;
 
@@ -30,15 +33,17 @@ array           :   LSQBR (expression (COMMA expression)*)? RSQBR;
 
 identifier_expr :   DOLLAR IDENTIFIER;
 
-expression      :   constant                                #ConstantExpression
-                |   expression  LSQBR expression RSQBR      #IndexingExpression
-                |   identifier_expr                         #IdentifierExpression
-                |   function_call                           #FunctionCallExpression
-                |   EXC_MARK expression                     #NegatedExpression
-                |   expression compare_oper expression      #CompareExpression
-                |   expression binary_oper expression       #BinaryExpression
-                |   LPAREN expression RPAREN                #EmphasizedExpression
-                |   expression math_oper expression         #MathExpression;
+expression      :   constant                                    #ConstantExpression
+                |   expression  LSQBR expression RSQBR          #IndexingExpression
+                |   identifier_expr                             #IdentifierExpression
+                |   function_call                               #FunctionCallExpression
+                |   EXC_MARK expression                         #NegatedExpression
+                |   expression compare_oper expression          #CompareExpression
+                |   expression binary_oper expression           #BinaryExpression
+                |   LPAREN expression RPAREN                    #EmphasizedExpression
+                |   expression math_oper expression             #MathExpression
+                |   expression TO expression WITH expression    #ForLoopExpression
+                |   expression INSIDE expression                #EachLoopExpression;
 
 function_call   :   IDENTIFIER (expression (COMMA expression)*)?;
 

@@ -7,5 +7,9 @@ def dostuff(arr) do
 end
 
 def main(args) do
-    fibonacci int $args[0];
+    -- fibonacci int $args[0];
+
+    loop 9 to 0 with "i" do
+        println $i;
+    end
 end
