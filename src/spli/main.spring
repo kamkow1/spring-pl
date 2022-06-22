@@ -9,7 +9,11 @@ end
 def main(args) do
     -- fibonacci int $args[0];
 
-    loop 9 to 0 with "i" do
-        println $i;
+    each "arg" inside $args do
+        if $arg == "exit" do 
+            bail out;
+        end
+
+        println $arg;
     end
 end

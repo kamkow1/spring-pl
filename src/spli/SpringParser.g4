@@ -13,9 +13,18 @@ scope           :   statement*;
 statement       :   expression          TERMINATOR
                 |   assign_var          TERMINATOR
                 |   return_statement    TERMINATOR
+                |   skip_iteration
+                |   bail_statement
                 |   function_def
                 |   if_statement
-                |   loop_statement;
+                |   loop_statement
+                |   each_loop_statement;
+
+bail_statement  :   BAIL TERMINATOR;
+
+skip_iteration  :   SKIP_ITERATION TERMINATOR;
+            
+each_loop_statement:     EACH expression DO scope END;
 
 loop_statement  :   LOOP expression? DO scope END;
 
@@ -43,7 +52,7 @@ expression      :   constant                                    #ConstantExpress
                 |   LPAREN expression RPAREN                    #EmphasizedExpression
                 |   expression math_oper expression             #MathExpression
                 |   expression TO expression WITH expression    #ForLoopExpression
-                |   expression INSIDE expression                #EachLoopExpression;
+                |   expression INSIDE expression (WITH expression)? #EachLoopExpression;
 
 function_call   :   IDENTIFIER (expression (COMMA expression)*)?;
 

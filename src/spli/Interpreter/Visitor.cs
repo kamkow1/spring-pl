@@ -16,6 +16,10 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
     private bool _lastConditionResult;
 
+    private bool _shouldSkipCurrentIteration = false;
+
+    private bool _shouldExitCurrentLoop = false;
+
     public Visitor()
     {
         // io
@@ -468,11 +472,23 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         {
             while(true)
             {
+                if (_shouldExitCurrentLoop)
+                {
+                    _shouldExitCurrentLoop = false;
+                    break;
+                }
+
                 var activationRecord = new ActivationRecord();
 
                 _stack.Push(activationRecord);
                 foreach (var statement in context.scope().statement())
                 {
+                    if (_shouldSkipCurrentIteration)
+                    {
+                        _shouldSkipCurrentIteration = false;
+                        continue;
+                    }
+
                     if (statement.return_statement() is {} returnStatement)
                         return Visit(returnStatement.expression());
                     Visit(statement);
@@ -491,6 +507,12 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             {
                 for (var i = loopConfig.Left; i <= loopConfig.Right; ++i)
                 {
+                    if (_shouldExitCurrentLoop)
+                    {
+                        _shouldExitCurrentLoop = false;
+                        break;
+                    }
+
                     var activationRecord = new ActivationRecord();
 
                     activationRecord.SetItem(loopConfig.IteratorName, i);
@@ -498,6 +520,12 @@ public class Visitor : SpringParserBaseVisitor<Object?>
                     _stack.Push(activationRecord);
                     foreach (var statement in context.scope().statement())
                     {
+                        if (_shouldSkipCurrentIteration)
+                        {
+                            _shouldSkipCurrentIteration = false;
+                            continue;
+                        }
+
                         if (statement.return_statement() is {} returnStatement)
                             return Visit(returnStatement.expression());
                         Visit(statement);
@@ -508,23 +536,46 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             else
             {
                 for (var i = loopConfig.Left; i >= loopConfig.Right; --i)
-                   {
-                       var activationRecord = new ActivationRecord();
+                {
+                    if (_shouldExitCurrentLoop)
+                    {
+                        _shouldExitCurrentLoop = false;
+                        break;
+                    }
 
-                       activationRecord.SetItem(loopConfig.IteratorName, i);
+                    var activationRecord = new ActivationRecord();
+                    activationRecord.SetItem(loopConfig.IteratorName, i);
+                    _stack.Push(activationRecord);
+                    foreach (var statement in context.scope().statement())
+                    {
+                        if (_shouldSkipCurrentIteration)
+                        {
+                            _shouldSkipCurrentIteration = false;
+                            continue;
+                        }
 
-                       _stack.Push(activationRecord);
-                       foreach (var statement in context.scope().statement())
-                       {
-                           if (statement.return_statement() is {} returnStatement)
-                               return Visit(returnStatement.expression());
-                           Visit(statement);
-                       }
-                       _stack.Pop();
-                   }   
+                        if (statement.return_statement() is {} returnStatement)
+                            return Visit(returnStatement.expression());
+
+                        Visit(statement);
+                    }
+                    _stack.Pop();
+                }   
             }
         }
 
+        return null;
+    }
+
+    public override object? VisitSkip_iteration([NotNull] SpringParser.Skip_iterationContext context)
+    {
+        _shouldSkipCurrentIteration = true;
+        return null;
+    }
+
+    public override object? VisitBail_statement([NotNull] SpringParser.Bail_statementContext context)
+    {
+        _shouldExitCurrentLoop = true;
         return null;
     }
 
@@ -540,6 +591,96 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             Left = left,
             Right = right,
             IteratorName = iteratorName
+        };
+    }
+
+    public override object? VisitEach_loop_statement([NotNull] SpringParser.Each_loop_statementContext context)
+    {
+        var config = (EachConfiguration)Visit(context.expression())!;
+
+        if (config.OptionalIteratorName is not null)
+        {
+            foreach(var item in config.Array.Select((value, i) => new { value, i }))
+            {
+                if (_shouldExitCurrentLoop)
+                {
+                    _shouldExitCurrentLoop = false;
+                    break;
+                }
+
+                var activationRecord = new ActivationRecord();
+
+                activationRecord.SetItem(config.ItemName, item.value);
+                activationRecord.SetItem(config.OptionalIteratorName, item.i);
+
+                _stack.Push(activationRecord);
+                foreach (var statement in context.scope().statement())
+                {
+                    if (statement.return_statement() is {} returnStatement)
+                        return Visit(returnStatement.expression());
+
+                    if (_shouldSkipCurrentIteration)
+                    {
+                        _shouldSkipCurrentIteration = false;
+                        continue;
+                    }
+
+                    Visit(statement);
+                }
+                _stack.Pop();
+            }
+        }
+        else
+        {
+            foreach(var item in config.Array)
+            {
+                if (_shouldExitCurrentLoop)
+                {
+                    _shouldExitCurrentLoop = false;
+                    break;
+                }
+
+                var activationRecord = new ActivationRecord();
+
+                activationRecord.SetItem(config.ItemName, item);
+
+                _stack.Push(activationRecord);
+                foreach (var statement in context.scope().statement())
+                {
+                    Console.WriteLine(_shouldSkipCurrentIteration);
+
+                    if (_shouldSkipCurrentIteration)
+                    {
+                        _shouldSkipCurrentIteration = false;
+                        continue;
+                    }
+
+                    if (statement.return_statement() is {} returnStatement)
+                        return Visit(returnStatement.expression());
+
+
+                    Visit(statement);
+                }
+                _stack.Pop();
+            }
+        }
+
+        return null;
+    }
+
+    public override object VisitEachLoopExpression([NotNull] SpringParser.EachLoopExpressionContext context)
+    {
+        var array = (object?[])Visit(context.expression(1))!;
+
+        var itemName = (string)Visit(context.expression(0))!;
+
+        var iteratorName = context.expression().ElementAtOrDefault(2) != null ? (string?)Visit(context.expression(2)) : null;
+
+        return new EachConfiguration
+        {
+            Array = array,
+            ItemName = itemName,
+            OptionalIteratorName = iteratorName
         };
     }
 }

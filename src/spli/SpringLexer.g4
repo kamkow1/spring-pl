@@ -13,6 +13,9 @@ LOOP                : 'loop';
 INSIDE              : 'inside';
 TO                  : 'to';
 WITH                : 'with';
+EACH                : 'each';
+SKIP_ITERATION      : 'go next';
+BAIL                : 'bail out';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;
