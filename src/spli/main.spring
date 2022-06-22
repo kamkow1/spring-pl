@@ -1,7 +1,5 @@
 "hello world" -> $hello;
 
--23.43 -> $some_number;
+$hello -> $re_assigned;
 
-True -> $bool_value;
-
-Null -> $this_is_null;
+["eoeo", 6485] -> $array;

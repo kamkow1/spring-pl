@@ -39,8 +39,6 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
        currentActivationRecord.SetItem(name, value);
 
-       Console.WriteLine(currentActivationRecord.GetItem(name));
-
         return true;
     }
 
@@ -63,6 +61,21 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         if (context.NULL() is {} nullValue)
             return null;
 
+        if (context.array() is {} array)
+            return Visit(array);
+
         throw new Exception($"unknown type {context.GetText()}");
+    }
+
+    public override object VisitArray([NotNull] SpringParser.ArrayContext context)
+    {
+        return context.expression().Select(Visit).ToArray();
+    }
+
+    public override object? VisitIdentifierExpression([NotNull] SpringParser.IdentifierExpressionContext context)
+    {
+        var activationRecord = _stack.Peek();
+        var name = context.IDENTIFIER().GetText();
+        return activationRecord.GetItem(name);
     }
 }
