@@ -40,5 +40,5 @@ POW                 : '^';
 
 IDENTIFIER          : ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A' .. 'Z' | '0'..'9' | '_')*;
 WHITESPACE          : [ \r\n\t]+    -> skip;
-COMMENT             : '#*' .*? '*#' -> channel(HIDDEN);
-LINE_COMMENT        : '#' ~[\r\n]*  -> channel(HIDDEN);
+COMMENT             : '/*' .*? '*#' -> channel(HIDDEN);
+LINE_COMMENT        : '--' ~[\r\n]*  -> channel(HIDDEN);

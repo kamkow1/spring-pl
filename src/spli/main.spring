@@ -8,7 +8,8 @@ def fibonacci_helper(a, b, counter, len) do
 end
 
 def fibonacci(len) do
+    -- start the sequence
     fibonacci_helper 0, 1, 1, $len;
 end
 
-fibonacci 10;
+fibonacci 20;
