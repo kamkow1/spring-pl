@@ -84,7 +84,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         return context.expression().Select(Visit).ToArray();
     }
 
-    public override object? VisitIdentifierExpression([NotNull] SpringParser.IdentifierExpressionContext context)
+    public override object? VisitIdentifier_expr([NotNull] SpringParser.Identifier_exprContext context)
     {
         var activationRecord = _stack.Peek();
         var name = context.IDENTIFIER().GetText();
@@ -127,6 +127,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
     public override object? VisitFunction_call([NotNull] SpringParser.Function_callContext context)
     {
         var name = context.IDENTIFIER().GetText();
+
 
         var arguments = context.expression().Select(Visit).ToArray();
 

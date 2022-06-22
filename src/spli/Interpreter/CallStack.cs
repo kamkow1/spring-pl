@@ -21,6 +21,9 @@ public class CallStack
 
     public ActivationRecord GetPreviousArOrCurrent()
     {
+        if (_activationRecords.Count == 0)
+            return _activationRecords.ElementAt(0);
+
         if (_activationRecords.Count != 0)
             return _activationRecords.ElementAt(1);
         return Peek();

@@ -10,8 +10,10 @@ fi
 
 if [ "$action" = "lexer" ]; then
   eval "java -jar $jar_loc ./SpringLexer.g4 -Dlanguage=CSharp -o ./Lexer"
+  eval "java -jar $jar_loc ./ModuleLexer.g4 -Dlanguage=CSharp -o ./ModuleLexer"
 elif [ "$action" = "parser" ]; then
   eval "java -jar $jar_loc ./SpringParser.g4 -Dlanguage=CSharp -o ./Parser -no-listener -visitor"
+  eval "java -jar $jar_loc ./ModuleParser.g4 -Dlanguage=CSharp -o ./ModuleParser -no-listener -visitor"
 else
   echo "action not supported"
 fi

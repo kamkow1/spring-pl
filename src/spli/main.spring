@@ -1,15 +1,9 @@
-def fibonacci_helper(a, b, counter, len) do
-    if $counter <= $len do
-        println $a;
+[]
+    include "./to_import.spring";
+[/]
 
-        fibonacci_helper $b, ($a + $b), $counter + 1, $len; 
-    end
+def main() do
+
+    fibonacci 20;
 
 end
-
-def fibonacci(len) do
-    -- start the sequence
-    fibonacci_helper 0, 1, 1, $len;
-end
-
-fibonacci 20;

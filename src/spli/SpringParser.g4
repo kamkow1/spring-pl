@@ -28,9 +28,11 @@ assign_var      :   expression ARROW DOLLAR IDENTIFIER;
 
 array           :   LSQBR (expression (COMMA expression)*)? RSQBR;
 
+identifier_expr :   DOLLAR IDENTIFIER;
+
 expression      :   constant                                #ConstantExpression
                 |   expression  LSQBR expression RSQBR      #IndexingExpression
-                |   DOLLAR IDENTIFIER                       #IdentifierExpression
+                |   identifier_expr                         #IdentifierExpression
                 |   function_call                           #FunctionCallExpression
                 |   EXC_MARK expression                     #NegatedExpression
                 |   expression compare_oper expression      #CompareExpression

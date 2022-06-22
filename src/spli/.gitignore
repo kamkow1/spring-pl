@@ -5,3 +5,5 @@ obj/
 .antlr/
 Lexer/
 Parser/
+ModuleParser/
+ModuleLexer/
