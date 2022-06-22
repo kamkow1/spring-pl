@@ -124,7 +124,12 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         _stack.Push(activationRecord);
 
         foreach(var statement in function.Statements)
+        {
+            if (statement.return_statement() is {} returnStatement)
+                return Visit(returnStatement.expression());
+
             Visit(statement);
+        }
 
         _stack.Pop();
 

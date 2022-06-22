@@ -1,13 +1,5 @@
-"hello world" -> $hello;
-
-$hello -> $re_assigned;
-
-["eoeo", 6485] -> $array;
-
-$array[0] -> $indexed;
-
-def do_stuff(str) do
-    67 -> $eo;
+def get_str() do
+    exit with "hello";
 end
 
-do_stuff . "hello" -> $b;
+get_str . -> $hi;

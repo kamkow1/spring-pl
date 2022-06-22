@@ -3,6 +3,7 @@ lexer grammar SpringLexer;
 DEF                 : 'def';
 DO                  : 'do';
 END                 : 'end';
+RETURN              : ('return' | 'exit with');
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;

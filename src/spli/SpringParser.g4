@@ -10,9 +10,12 @@ file_content    :   scope;
 
 scope           :   statement*;
 
-statement       :   expression      TERMINATOR
-                |   assign_var      TERMINATOR
+statement       :   expression          TERMINATOR
+                |   assign_var          TERMINATOR
+                |   return_statement    TERMINATOR
                 |   function_def;
+
+return_statement :  RETURN expression;
 
 assign_var      :   expression ARROW DOLLAR IDENTIFIER;
 
