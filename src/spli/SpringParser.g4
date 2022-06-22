@@ -11,7 +11,8 @@ file_content    :   scope;
 scope           :   statement*;
 
 statement       :   expression      TERMINATOR
-                |   assign_var      TERMINATOR;
+                |   assign_var      TERMINATOR
+                |   function_def;
 
 assign_var      :   expression ARROW DOLLAR IDENTIFIER;
 
@@ -27,3 +28,5 @@ constant        :   STRING_VALUE
                 |   BOOL_VALUE
                 |   NULL
                 |   array;
+
+function_def    :   DEF IDENTIFIER LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN DO scope END;

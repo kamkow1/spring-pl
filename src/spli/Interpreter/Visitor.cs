@@ -5,6 +5,8 @@ namespace spli.Interpreter;
 
 public class Visitor : SpringParserBaseVisitor<Object?>
 {
+    private Dictionary<string, Function> _availableFunctions = new();
+
     private CallStack _stack = new();
 
     private int _currentNestingLevel = 0;
@@ -77,5 +79,29 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         var activationRecord = _stack.Peek();
         var name = context.IDENTIFIER().GetText();
         return activationRecord.GetItem(name);
+    }
+
+    public override object? VisitFunction_def([NotNull] SpringParser.Function_defContext context)
+    {
+        var name = context.IDENTIFIER(0).GetText();
+
+        var parameters = new List<string>();
+
+        for(var i = 1; i < context.IDENTIFIER().Length; ++i) 
+        {
+            parameters.Add(context.IDENTIFIER(i).GetText());
+        }
+
+        var statements = context.scope().statement();
+
+        var function = new Function
+        {
+            Parameters = parameters.ToArray(),
+            Statements = statements
+        };
+
+        _availableFunctions.Add(name, function);
+
+        return null;
     }
 }
