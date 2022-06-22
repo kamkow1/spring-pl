@@ -32,6 +32,11 @@ GREATER_EQUAL       : '>=';
 LESS                : '<';
 LESS_EQUAL          : '<=';
 EXC_MARK            : '!';
+PLUS                : '+';
+MINUS               : '-';
+MULT                : '*';
+DIV                 : '/';
+POW                 : '^';
 
 IDENTIFIER          : ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A' .. 'Z' | '0'..'9' | '_')*;
 WHITESPACE          : [ \r\n\t]+    -> skip;

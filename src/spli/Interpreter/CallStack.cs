@@ -18,4 +18,16 @@ public class CallStack
     {
         return _activationRecords.Peek();
     }
+
+    public ActivationRecord GetPreviousArOrCurrent()
+    {
+        if (_activationRecords.Count != 0)
+            return _activationRecords.ElementAt(1);
+        return Peek();
+    }
+
+    public int GetLength()
+    {
+        return _activationRecords.Count;
+    }
 }

@@ -35,7 +35,8 @@ expression      :   constant                                #ConstantExpression
                 |   EXC_MARK expression                     #NegatedExpression
                 |   expression compare_oper expression      #CompareExpression
                 |   expression binary_oper expression       #BinaryExpression
-                |   LPAREN expression RPAREN                #EmphasizedExpression;
+                |   LPAREN expression RPAREN                #EmphasizedExpression
+                |   expression math_oper expression         #MathExpression;
 
 function_call   :   IDENTIFIER (expression (COMMA expression)*)?;
 
@@ -45,6 +46,12 @@ constant        :   STRING_VALUE
                 |   BOOL_VALUE
                 |   NULL
                 |   array;
+
+math_oper       :   PLUS
+                |   MINUS
+                |   DIV
+                |   MULT
+                |   POW;
 
 compare_oper    :   EQUAL
                 |   NOT_EQUAL

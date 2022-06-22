@@ -4,16 +4,21 @@ namespace spli.Interpreter;
 
 public class ActivationRecord
 {
-    private Dictionary<string, object?> _members = new();
+    public Dictionary<string, object?> Members = new();
 
     public void SetItem(string key, object? value)
     {
-        _members.Add(key, value);
+        Members.Add(key, value);
     }
 
     public object? GetItem(string key)
     {
-        return _members[key];
+        return Members[key];
+    }
+
+    public bool CheckIfMemberExists(string key)
+    {
+        return Members.ContainsKey(key);
     }
 
     public override string ToString()

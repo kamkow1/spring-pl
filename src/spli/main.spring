@@ -1,11 +1,13 @@
-def get_str(num) do
-    if $num == 5 and !(3 == 7) do
-        println "== 5";
-    elif $num == 9 do
-        println "== 9";
-    else do
-        println "could not match";
+def fibonacci_helper(f, b, c, len) do
+    if $c <= $len do
+        println $f;
+        fibonacci_helper $b, ($f + $b), ($c + 1), $len; 
     end
+
 end
 
-get_str 10;
+def fibonacci(len) do
+    fibonacci_helper 0, 1, 1, $len;
+end
+
+fibonacci 10;

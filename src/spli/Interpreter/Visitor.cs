@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Antlr4.Runtime.Misc;
-
+using Newtonsoft.Json;
 using static BuiltinFunctions;
 
 namespace spli.Interpreter;
@@ -88,6 +88,12 @@ public class Visitor : SpringParserBaseVisitor<Object?>
     {
         var activationRecord = _stack.Peek();
         var name = context.IDENTIFIER().GetText();
+
+        var previousAr = _stack.GetPreviousArOrCurrent();
+
+        if (previousAr.Members.ContainsKey(name))
+            return previousAr.GetItem(name);
+
         return activationRecord.GetItem(name);
     }
 
@@ -132,7 +138,12 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         var activationRecord = new ActivationRecord();
 
         foreach(var parameter in function.Parameters.Select((value, i) => (value, i)))
+        {
+            if (activationRecord.CheckIfMemberExists(parameter.value))
+                continue;
+
             activationRecord.SetItem(parameter.value, arguments[parameter.i]);
+        }
 
         _stack.Push(activationRecord);
 
@@ -199,6 +210,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         if (elifCondition! == true)
         {
             var activationRecord = new ActivationRecord();
+
             _stack.Push(activationRecord);
             foreach (var statement in context.scope().statement())
             {
@@ -215,6 +227,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
     public override object? VisitElse_statement([NotNull] SpringParser.Else_statementContext context)
     {
         var activationRecord = new ActivationRecord();
+
         _stack.Push(activationRecord);
         foreach (var statement in context.scope().statement())
         {
@@ -238,7 +251,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         var left = Visit(context.expression(0));
         var right = Visit(context.expression(1));
 
-        if (new Regex("^==$").IsMatch(opr))
+        if (new Regex("^==$", RegexOptions.Compiled).IsMatch(opr))
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) == int.Parse(right.ToString()!);
@@ -252,7 +265,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
                 return left.ToString() == right.ToString();
         }
 
-        if (new Regex("^!=$").IsMatch(opr))
+        if (new Regex("^!=$", RegexOptions.Compiled).IsMatch(opr))
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) != int.Parse(right.ToString()!);
@@ -266,7 +279,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
                 return left.ToString() != right.ToString();
         }
 
-        if (new Regex("^>=$").IsMatch(opr))
+        if (new Regex("^>=$", RegexOptions.Compiled).IsMatch(opr))
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) >= int.Parse(right.ToString()!);
@@ -281,7 +294,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             else throw new Exception($"cannot compare if {left} is qreater or equal than {right} since they're not either int, float or string");
         }
 
-        if (new Regex("^<=$").IsMatch(opr))
+        if (new Regex("^<=$", RegexOptions.Compiled).IsMatch(opr))
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) <= int.Parse(right.ToString()!);
@@ -296,7 +309,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             else throw new Exception($"cannot compare if {left} is less or equal than {right} since they're not either int, float or string");
         }
 
-        if (new Regex("^>$").IsMatch(opr))
+        if (new Regex("^>$", RegexOptions.Compiled).IsMatch(opr))
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) > int.Parse(right.ToString()!);
@@ -311,7 +324,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             else throw new Exception($"cannot compare if {left} is qreater than {right} since they're not either int, float or string");
         }
 
-        if (new Regex("^<$").IsMatch(opr))
+        if (new Regex("^<$", RegexOptions.Compiled).IsMatch(opr))
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) < int.Parse(right.ToString()!);
@@ -343,5 +356,85 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             return (bool)left! || (bool)right!;
 
         throw new Exception($"cannot evaluate a binary expression with {left} and {right}");
+    }
+
+    public override object VisitMathExpression([NotNull] SpringParser.MathExpressionContext context)
+    {
+        var oper = context.math_oper().GetText();
+
+        var left = Visit(context.expression(0));
+        var right = Visit(context.expression(1));
+
+        if (oper == "+")
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) + int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) + float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) + int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) + float.Parse(right.ToString()!);
+            else if (left is string || right is string)
+                return left!.ToString() + right!.ToString();
+            else throw new Exception($"cannot add {left} to {right} since they're not either int, float or string");
+        }
+
+        if (oper == "-")
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) - int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) - float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) - int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) - float.Parse(right.ToString()!);
+            else throw new Exception($"cannot subtract {right} from {left} since they're not either int or float");
+        }
+
+        if (oper == "*")
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) * int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) * float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) * int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) * float.Parse(right.ToString()!);
+            else throw new Exception($"cannot multiply {left} by {right} since they're not either int or float");
+        }
+
+        if (oper == "/")
+        {
+            if (int.Parse(right.ToString()!) == 0)
+                throw new Exception("cannot divide by 0");
+
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) / int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) / float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) / int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) / float.Parse(right.ToString()!);
+            else throw new Exception($"cannot divide {left} by {right} since they're not either int or float");
+        }
+
+        if (oper == "^")
+        {
+            if (left is int && right is int)
+                return Math.Pow(int.Parse(left.ToString()!), int.Parse(right.ToString()!));
+            else if (left is int && right is float)
+                return Math.Pow(int.Parse(left.ToString()!), float.Parse(right.ToString()!));
+            else if (left is float && right is int)
+                return Math.Pow(float.Parse(left.ToString()!), int.Parse(right.ToString()!));
+            else if (left is float && right is float)
+                return Math.Pow(float.Parse(left.ToString()!), float.Parse(right.ToString()!));
+            else throw new Exception($"cannot raise {left} to {right} since they're not either int or float");
+        }
+
+        throw new Exception($"evaluating math expression on {left} and {right} failed");
     }
 }
