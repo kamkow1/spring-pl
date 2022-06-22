@@ -4,5 +4,5 @@ public class LoopConfiguration
 
     public int Right { get; set; }
 
-    public string IteratorName { get; set; }
+    public string? IteratorName { get; set; }
 }

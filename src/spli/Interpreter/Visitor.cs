@@ -515,7 +515,8 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
                     var activationRecord = new ActivationRecord();
 
-                    activationRecord.SetItem(loopConfig.IteratorName, i);
+                    if (loopConfig.IteratorName is not null)
+                        activationRecord.SetItem(loopConfig.IteratorName, i);
 
                     _stack.Push(activationRecord);
                     foreach (var statement in context.scope().statement())
@@ -544,7 +545,10 @@ public class Visitor : SpringParserBaseVisitor<Object?>
                     }
 
                     var activationRecord = new ActivationRecord();
-                    activationRecord.SetItem(loopConfig.IteratorName, i);
+
+                    if (loopConfig.IteratorName is not null)
+                        activationRecord.SetItem(loopConfig.IteratorName, i);
+                        
                     _stack.Push(activationRecord);
                     foreach (var statement in context.scope().statement())
                     {
@@ -584,7 +588,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         var left = (int)Visit(context.expression(0))!;
         var right = (int)Visit(context.expression(1))!;
 
-        var iteratorName = (string)Visit(context.expression(2))!;
+        var iteratorName = context.expression().ElementAtOrDefault(2) != null ? (string?)Visit(context.expression(2)) : null;
 
         return new LoopConfiguration
         {

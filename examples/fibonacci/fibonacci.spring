@@ -1,13 +1,13 @@
-def fibonacci_helper(a, b, counter, len) do
+def fibonacci_recursive_helper(a, b, counter, len) do
     if $counter <= $len do
         println $a;
 
-        fibonacci_helper $b, ($a + $b), $counter + 1, $len; 
+        fibonacci_recursive_helper $b, ($a + $b), $counter + 1, $len; 
     end
 
 end
 
-def fibonacci(len) do
+def fibonacci_recursive(len) do
     -- start the sequence
-    fibonacci_helper 0, 1, 1, $len;
+    fibonacci_recursive_helper 0, 1, 1, $len;
 end

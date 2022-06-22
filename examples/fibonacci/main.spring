@@ -7,6 +7,13 @@ def main(args) do
     -- call included function
     -- with length argument (casted to int)
 
-    fibonacci int $args[0];
+    -- string argument ( "rec" or "loop" )
+    $args[0] -> $type;
 
+    if $type == "rec" do
+        fibonacci_recursive int $args[1];
+    end
+
+    -- TODO: add a fibonacci sequence generator
+    -- with a loop
 end

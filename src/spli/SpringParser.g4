@@ -51,7 +51,7 @@ expression      :   constant                                    #ConstantExpress
                 |   expression binary_oper expression           #BinaryExpression
                 |   LPAREN expression RPAREN                    #EmphasizedExpression
                 |   expression math_oper expression             #MathExpression
-                |   expression TO expression WITH expression    #ForLoopExpression
+                |   expression TO expression (WITH expression)? #ForLoopExpression
                 |   expression INSIDE expression (WITH expression)? #EachLoopExpression;
 
 function_call   :   IDENTIFIER (expression (COMMA expression)*)?;
