@@ -3,3 +3,5 @@
 $hello -> $re_assigned;
 
 ["eoeo", 6485] -> $array;
+
+$array[0] -> $indexed;
