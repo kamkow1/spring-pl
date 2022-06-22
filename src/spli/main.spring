@@ -2,6 +2,6 @@ def get_str() do
     exit with "hello";
 end
 
-get_str . -> $hi;
+get_str -> $hi;
 
-println . $hi;
+println $hi;

@@ -26,7 +26,7 @@ expression      :   constant                                #ConstantExpression
                 |   DOLLAR IDENTIFIER                       #IdentifierExpression
                 |   function_call                           #FunctionCallExpression;
 
-function_call   :   IDENTIFIER DOT (expression (COMMA expression)*)?;
+function_call   :   IDENTIFIER (expression (COMMA expression)*)?;
 
 constant        :   STRING_VALUE
                 |   INTEGER_VALUE
