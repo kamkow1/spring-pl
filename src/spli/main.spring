@@ -1,7 +1,8 @@
-def fibonacci_helper(f, b, c, len) do
-    if $c <= $len do
-        println $f;
-        fibonacci_helper $b, ($f + $b), ($c + 1), $len; 
+def fibonacci_helper(a, b, counter, len) do
+    if $counter <= $len do
+        println $a;
+
+        fibonacci_helper $b, ($a + $b), $counter + 1, $len; 
     end
 
 end
