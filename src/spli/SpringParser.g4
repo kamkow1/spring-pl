@@ -15,7 +15,7 @@ statement       :   expression      TERMINATOR
 
 assign_var      :   expression ARROW DOLLAR IDENTIFIER;
 
-expression      :   constant;
+expression      :   constant        #ConstantExpression;
 
 constant        :   STRING_VALUE
                 |   INTEGER_VALUE

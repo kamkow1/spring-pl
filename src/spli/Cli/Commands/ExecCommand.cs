@@ -29,6 +29,7 @@ public static class ExecCommand
 
         var fileContent = File.ReadAllText(filePath);
 
+        Initializer.Run(fileContent);
 
         return 0;
     }
