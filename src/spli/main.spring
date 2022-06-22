@@ -3,3 +3,5 @@ def get_str() do
 end
 
 get_str . -> $hi;
+
+println . $hi;

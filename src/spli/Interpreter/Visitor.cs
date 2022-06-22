@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using Antlr4.Runtime.Misc;
+
+using static BuiltinFunctions;
 
 namespace spli.Interpreter;
 
@@ -7,9 +8,18 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 {
     private Dictionary<string, Function> _availableFunctions = new();
 
+    private Dictionary<string, Func<object?[]?, object?>> _builtinFunctions = new();
+
     private CallStack _stack = new();
 
     private int _currentNestingLevel = 0;
+
+    public Visitor()
+    {
+        _builtinFunctions.Add("println", new Func<object?[]?, object?>(args => Println(args)));
+        _builtinFunctions.Add("print", new Func<object?[]?, object?>(args => Print(args)));
+        _builtinFunctions.Add("read_console", new Func<object?[]?, object?>(_ => ReadConsole()));
+    }
 
     public override object? VisitFile_content([NotNull] SpringParser.File_contentContext context)
     {
@@ -54,8 +64,10 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         if (context.STRING_VALUE() is {} stringValue)
             return stringValue.GetText()
-                .Replace(stringValue.GetText()[stringValue.GetText().Length - 1], '\0')
-                .Replace(stringValue.GetText()[0], '\0');
+                .Replace(Char.ToString(stringValue.GetText()[stringValue.GetText().Length - 1]), "")
+                .Replace(Char.ToString(stringValue.GetText()[stringValue.GetText().Length - 1]), "")
+                .Replace(Char.ToString(stringValue.GetText()[0]), "")
+                .Replace(Char.ToString(stringValue.GetText()[0]), "");
 
         if (context.BOOL_VALUE() is {} boolValue)
             return boolValue.GetText() == "True" ? true : false;
@@ -85,6 +97,9 @@ public class Visitor : SpringParserBaseVisitor<Object?>
     {
         var name = context.IDENTIFIER(0).GetText();
 
+        if (_builtinFunctions.ContainsKey(name))
+            throw new Exception($"function {name} already exists");
+
         var parameters = new List<string>();
 
         for(var i = 1; i < context.IDENTIFIER().Length; ++i) 
@@ -110,6 +125,9 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         var name = context.IDENTIFIER().GetText();
 
         var arguments = context.expression().Select(Visit).ToArray();
+
+        if (_builtinFunctions.ContainsKey(name))
+            return _builtinFunctions[name](arguments);
 
         var function = _availableFunctions[name];
 
