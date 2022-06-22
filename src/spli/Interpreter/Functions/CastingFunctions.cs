@@ -1,34 +1,7 @@
-using Newtonsoft.Json;
+namespace spli.Interpreter.Functions;
 
-public static class BuiltinFunctions
+public static class CastingFucntions
 {
-    public static object? Println(object?[]? args)
-    {
-        if (args is not null && args.Length != 0)
-        {
-            foreach(var arg in args)
-                Console.WriteLine(JsonConvert.SerializeObject(arg, Formatting.Indented));
-        }
-
-        return null;
-    }
-
-    public static object? Print(object?[]? args)
-    {
-        if (args is not null && args.Length != 0)
-        {
-            foreach(var arg in args)
-                Console.Write(JsonConvert.SerializeObject(arg, Formatting.Indented));
-        }
-
-        return null;
-    }
-
-    public static object? ReadConsole()
-    {
-        return Console.ReadLine();
-    }
-
     public static object? Int(object?[]? args)
     {
         var num = int.Parse(args![0]!.ToString()!);
