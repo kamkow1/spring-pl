@@ -1,4 +1,6 @@
+using System.Linq;
 using Antlr4.Runtime.Misc;
+using Newtonsoft.Json;
 
 namespace spli.Interpreter;
 
@@ -24,6 +26,9 @@ public class ModuleVisitor : ModuleParserBaseVisitor<object?>
             .Replace(Char.ToString(context.STRING_VALUE().GetText()[0]), "")
             .Replace(Char.ToString(context.STRING_VALUE().GetText()[context.STRING_VALUE().GetText().Length - 1]), "");
 
-        return Path.GetFullPath(_workingDirPath) + "/" + Path.GetFileName(path);
+
+        Console.WriteLine(path);
+
+        return Path.GetFullPath(_workingDirPath) + "/" + path;
     }
 }
