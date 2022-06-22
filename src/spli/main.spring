@@ -7,7 +7,5 @@ def dostuff(arr) do
 end
 
 def main(args) do
-
-    int $args[0] -> $amnt;
-    fibonacci $amnt;
+    fibonacci int $args[0];
 end

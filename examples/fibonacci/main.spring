@@ -1,0 +1,12 @@
+[]
+    include "fibonacci.spring";
+[/]
+
+def main(args) do
+
+    -- call included function
+    -- with length argument (casted to int)
+
+    fibonacci int $args[0];
+
+end

@@ -19,7 +19,7 @@ public static class Initializer
             var moduleCommonTokenStream     = new CommonTokenStream(moduleLexer);
             var moduleParser                = new ModuleParser(moduleCommonTokenStream);
             var moduleParseContext          = moduleParser.parse();
-            var moduleVisitor               = new ModuleVisitor();
+            var moduleVisitor               = new ModuleVisitor(Path.GetDirectoryName(filePath)!);
 
             var includePaths = moduleVisitor.Visit(moduleParseContext);
 
