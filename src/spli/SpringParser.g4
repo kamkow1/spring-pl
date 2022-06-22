@@ -20,7 +20,10 @@ array           :   LSQBR (expression (COMMA expression)*)? RSQBR;
 
 expression      :   constant                                #ConstantExpression
                 |   expression  LSQBR expression RSQBR      #IndexingExpression
-                |   DOLLAR IDENTIFIER                       #IdentifierExpression;
+                |   DOLLAR IDENTIFIER                       #IdentifierExpression
+                |   function_call                           #FunctionCallExpression;
+
+function_call   :   IDENTIFIER DOT (expression (COMMA expression)*)?;
 
 constant        :   STRING_VALUE
                 |   INTEGER_VALUE

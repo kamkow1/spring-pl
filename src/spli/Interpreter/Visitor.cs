@@ -104,4 +104,30 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         return null;
     }
+
+    public override object? VisitFunction_call([NotNull] SpringParser.Function_callContext context)
+    {
+        var name = context.IDENTIFIER().GetText();
+
+        var arguments = context.expression().Select(Visit).ToArray();
+
+        var function = _availableFunctions[name];
+
+        var activationRecord = new ActivationRecord
+        {
+            NestingLevel = _currentNestingLevel
+        };
+
+        foreach(var parameter in function.Parameters.Select((value, i) => (value, i)))
+            activationRecord.SetItem(parameter.value, arguments[parameter.i]);
+
+        _stack.Push(activationRecord);
+
+        foreach(var statement in function.Statements)
+            Visit(statement);
+
+        _stack.Pop();
+
+        return null;
+    }
 }
