@@ -13,7 +13,10 @@ scope           :   statement*;
 statement       :   expression          TERMINATOR
                 |   assign_var          TERMINATOR
                 |   return_statement    TERMINATOR
-                |   function_def;
+                |   function_def
+                |   if_statement;
+
+if_statement    :   IF expression DO scope END;
 
 return_statement :  RETURN expression;
 
@@ -24,7 +27,11 @@ array           :   LSQBR (expression (COMMA expression)*)? RSQBR;
 expression      :   constant                                #ConstantExpression
                 |   expression  LSQBR expression RSQBR      #IndexingExpression
                 |   DOLLAR IDENTIFIER                       #IdentifierExpression
-                |   function_call                           #FunctionCallExpression;
+                |   function_call                           #FunctionCallExpression
+                |   EXC_MARK expression                     #NegatedExpression
+                |   expression compare_oper expression      #CompareExpression
+                |   expression binary_oper expression       #BinaryExpression
+                |   LPAREN expression RPAREN                #EmphasizedExpression;
 
 function_call   :   IDENTIFIER (expression (COMMA expression)*)?;
 
@@ -34,5 +41,15 @@ constant        :   STRING_VALUE
                 |   BOOL_VALUE
                 |   NULL
                 |   array;
+
+compare_oper    :   EQUAL
+                |   NOT_EQUAL
+                |   GREATER
+                |   GREATER_EQUAL
+                |   LESS
+                |   LESS_EQUAL;
+
+binary_oper     :   AND 
+                |   OR;
 
 function_def    :   DEF IDENTIFIER LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN DO scope END;

@@ -4,8 +4,6 @@ namespace spli.Interpreter;
 
 public class ActivationRecord
 {
-    public int NestingLevel { get; set; }
-
     private Dictionary<string, object?> _members = new();
 
     public void SetItem(string key, object? value)

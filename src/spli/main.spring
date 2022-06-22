@@ -1,7 +1,7 @@
-def get_str() do
-    exit with "hello";
+def get_str(num) do
+    if $num == 5 and 3 == 7 do
+        println "== 5";
+    end
 end
 
-get_str -> $hi;
-
-println $hi;
+get_str 5;

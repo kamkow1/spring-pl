@@ -4,6 +4,9 @@ DEF                 : 'def';
 DO                  : 'do';
 END                 : 'end';
 RETURN              : ('return' | 'exit with');
+IF                  : 'if';
+AND                 : 'and';
+OR                  : 'or';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;
@@ -20,6 +23,13 @@ LPAREN              : '(';
 RPAREN              : ')';
 COMMA               : ',';
 DOT                 : '.';
+EQUAL               : '==';
+NOT_EQUAL           : '!=';
+GREATER             : '>';
+GREATER_EQUAL       : '>=';
+LESS                : '<';
+LESS_EQUAL          : '<=';
+EXC_MARK            : '!';
 
 IDENTIFIER          : ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A' .. 'Z' | '0'..'9' | '_')*;
 WHITESPACE          : [ \r\n\t]+    -> skip;

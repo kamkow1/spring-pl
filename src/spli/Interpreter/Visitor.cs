@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Antlr4.Runtime.Misc;
 
 using static BuiltinFunctions;
@@ -11,8 +12,6 @@ public class Visitor : SpringParserBaseVisitor<Object?>
     private Dictionary<string, Func<object?[]?, object?>> _builtinFunctions = new();
 
     private CallStack _stack = new();
-
-    private int _currentNestingLevel = 0;
 
     public Visitor()
     {
@@ -28,10 +27,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
     public override object? VisitScope([NotNull] SpringParser.ScopeContext context)
     {
-        var activationRecord = new ActivationRecord
-        {
-            NestingLevel = _currentNestingLevel
-        };
+        var activationRecord = new ActivationRecord();
 
         _stack.Push(activationRecord);
 
@@ -131,10 +127,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         var function = _availableFunctions[name];
 
-        var activationRecord = new ActivationRecord
-        {
-            NestingLevel = _currentNestingLevel
-        };
+        var activationRecord = new ActivationRecord();
 
         foreach(var parameter in function.Parameters.Select((value, i) => (value, i)))
             activationRecord.SetItem(parameter.value, arguments[parameter.i]);
@@ -152,5 +145,155 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         _stack.Pop();
 
         return null;
+    }
+
+    public override object? VisitEmphasizedExpression([NotNull] SpringParser.EmphasizedExpressionContext context)
+    {
+        return Visit(context.expression());
+    }
+
+    public override object? VisitIf_statement([NotNull] SpringParser.If_statementContext context)
+    {
+        var condition = (bool)Visit(context.expression())!;
+
+        var statements = context.scope().statement();
+
+        if (condition == true)
+        {
+            var activationRecord = new ActivationRecord();
+
+            _stack.Push(activationRecord);
+
+            foreach (var statement in statements)
+            {
+                if (statement.return_statement() is {} returnStatement)
+                    return Visit(returnStatement.expression());
+
+                Visit(statement);
+            }
+
+            _stack.Pop();
+        }
+
+        return null;
+    }
+
+    public override object VisitNegatedExpression([NotNull] SpringParser.NegatedExpressionContext context)
+    {
+        return !((bool)Visit(context.expression())!);
+    }
+
+    public override object VisitCompareExpression([NotNull] SpringParser.CompareExpressionContext context)
+    {
+        var opr = context.compare_oper().GetText();
+
+        var left = Visit(context.expression(0));
+        var right = Visit(context.expression(1));
+
+        if (new Regex("^==$").IsMatch(opr))
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) == int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) == float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) == int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) == float.Parse(right.ToString()!);
+            else if (left is string && right is string)
+                return left.ToString() == right.ToString();
+        }
+
+        if (new Regex("^!=$").IsMatch(opr))
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) != int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) != float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) != int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) != float.Parse(right.ToString()!);
+            else if (left is string && right is string)
+                return left.ToString() != right.ToString();
+        }
+
+        if (new Regex("^>=$").IsMatch(opr))
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) >= int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) >= float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) >= int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) >= float.Parse(right.ToString()!);
+            else if (left is string && right is string)
+                return left.ToString()!.Length >= right.ToString()!.Length;
+            else throw new Exception($"cannot compare if {left} is qreater or equal than {right} since they're not either int, float or string");
+        }
+
+        if (new Regex("^<=$").IsMatch(opr))
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) <= int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) <= float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) <= int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) <= float.Parse(right.ToString()!);
+            else if (left is string && right is string)
+                return left.ToString()!.Length <= right.ToString()!.Length;
+            else throw new Exception($"cannot compare if {left} is less or equal than {right} since they're not either int, float or string");
+        }
+
+        if (new Regex("^>$").IsMatch(opr))
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) > int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) > float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) > int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) > float.Parse(right.ToString()!);
+            else if (left is string && right is string)
+                return left.ToString()!.Length > right.ToString()!.Length;
+            else throw new Exception($"cannot compare if {left} is qreater than {right} since they're not either int, float or string");
+        }
+
+        if (new Regex("^<$").IsMatch(opr))
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) < int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) < float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) < int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) < float.Parse(right.ToString()!);
+            else if (left is string && right is string)
+                return left.ToString()!.Length < right.ToString()!.Length;
+            else throw new Exception($"cannot compare if {left} is less than {right} since they're not either int, float or string");
+        }
+
+        return false;
+    }
+
+    public override object VisitBinaryExpression([NotNull] SpringParser.BinaryExpressionContext context)
+    {
+        var opr = context.binary_oper().GetText();
+
+        var left = Visit(context.expression(0));
+        var right = Visit(context.expression(1));
+
+        if (opr == "and")
+            return (bool)left! && (bool)right!;
+
+        if (opr == "or")
+            return (bool)left! || (bool)right!;
+
+        throw new Exception($"cannot evaluate a binary expression with {left} and {right}");
     }
 }
