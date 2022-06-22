@@ -1,1 +1,7 @@
 "hello world" -> $hello;
+
+-23.43 -> $some_number;
+
+True -> $bool_value;
+
+Null -> $this_is_null;
