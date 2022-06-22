@@ -647,7 +647,6 @@ public class Visitor : SpringParserBaseVisitor<Object?>
                 _stack.Push(activationRecord);
                 foreach (var statement in context.scope().statement())
                 {
-                    Console.WriteLine(_shouldSkipCurrentIteration);
 
                     if (_shouldSkipCurrentIteration)
                     {
