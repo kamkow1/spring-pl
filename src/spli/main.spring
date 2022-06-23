@@ -12,6 +12,12 @@ struct Dog has
     pub def bark() do
         println "woof woof";
     end
+
+    pub def run(dist) do
+        loop 0 to $dist with "d" do
+            println ("the dog ran " + string $d) + " meters";
+        end
+    end
 end
 
 def main(args) do
@@ -20,4 +26,8 @@ def main(args) do
     7 -> $dog.age;
 
     println $dog.age;
+
+    $dog.bark();
+
+    $dog.run 30;
 end

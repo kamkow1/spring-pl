@@ -69,7 +69,8 @@ expression      :   constant                                    #ConstantExpress
                 |   expression TO expression (WITH expression)? #ForLoopExpression
                 |   expression INSIDE expression (WITH expression)? #EachLoopExpression
                 |   expression DOT IDENTIFIER                   #PropAccessExpression
-                |   NEW IDENTIFIER                              #NewStructExpression;
+                |   NEW IDENTIFIER                              #NewStructExpression
+                |   expression DOT ((IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN)) #MethodCallExpression;
 
 function_call   :   (IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN);
 
