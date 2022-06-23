@@ -15,5 +15,9 @@ struct Dog has
 end
 
 def main(args) do
-    -- fibonacci int $args[0];
+    new Dog -> $dog;
+
+    7 -> $dog.age;
+
+    println $dog.age;
 end

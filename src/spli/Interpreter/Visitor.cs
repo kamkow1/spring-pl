@@ -755,4 +755,42 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             IsPublic = isPublic
         };
     }
+
+    public override object? VisitPropAccessExpression([NotNull] SpringParser.PropAccessExpressionContext context)
+    {
+        var structure = (Structure)Visit(context.expression())!;
+        var propName = context.IDENTIFIER().GetText();
+
+        if (structure.Props[propName].IsPublic)
+            return structure.Props[propName].Value;
+
+        throw new Exception($"cannot access a private property {propName}");
+    }
+
+    public override object VisitNewStructExpression([NotNull] SpringParser.NewStructExpressionContext context)
+    {
+        var name = context.IDENTIFIER().GetText();
+
+        var structure = _structs[name];
+
+        return new Structure
+        {
+            Methods = structure.Methods,
+            Props = structure.Props
+        };
+    }
+
+    public override object VisitAssign_struct_prop([NotNull] SpringParser.Assign_struct_propContext context)
+    {
+        var value = Visit(context.expression(0));
+        var structure = (Structure)Visit(context.expression(1))!;
+
+        var propName = context.IDENTIFIER().GetText();
+
+        if (structure.Props[propName].IsPublic)
+            structure.Props[propName].Value = value;
+        else throw new Exception($"cannot access a private property {propName}");
+
+        return true;
+    }
 }

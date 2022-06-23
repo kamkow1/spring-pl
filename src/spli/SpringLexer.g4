@@ -21,6 +21,7 @@ HAS                 : 'has';
 PROP                : 'prop';
 PUB                 : 'pub';
 PRV                 : 'prv';
+NEW                 : 'new';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;

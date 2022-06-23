@@ -13,6 +13,7 @@ scope           :   statement*;
 statement       :   expression          TERMINATOR
                 |   assign_var          TERMINATOR
                 |   return_statement    TERMINATOR
+                |   assign_struct_prop  TERMINATOR
                 |   skip_iteration
                 |   bail_statement
                 |   function_def
@@ -20,6 +21,8 @@ statement       :   expression          TERMINATOR
                 |   loop_statement
                 |   each_loop_statement
                 |   struct_def;
+
+assign_struct_prop  : expression ARROW expression DOT IDENTIFIER;
 
 struct_def      :   STRUCT IDENTIFIER HAS struct_content END;
 
@@ -64,9 +67,11 @@ expression      :   constant                                    #ConstantExpress
                 |   LPAREN expression RPAREN                    #EmphasizedExpression
                 |   expression math_oper expression             #MathExpression
                 |   expression TO expression (WITH expression)? #ForLoopExpression
-                |   expression INSIDE expression (WITH expression)? #EachLoopExpression;
+                |   expression INSIDE expression (WITH expression)? #EachLoopExpression
+                |   expression DOT IDENTIFIER                   #PropAccessExpression
+                |   NEW IDENTIFIER                              #NewStructExpression;
 
-function_call   :   IDENTIFIER (expression (COMMA expression)*)?;
+function_call   :   (IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN);
 
 constant        :   STRING_VALUE
                 |   INTEGER_VALUE
