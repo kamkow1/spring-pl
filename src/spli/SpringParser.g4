@@ -18,7 +18,19 @@ statement       :   expression          TERMINATOR
                 |   function_def
                 |   if_statement
                 |   loop_statement
-                |   each_loop_statement;
+                |   each_loop_statement
+                |   struct_def;
+
+struct_def      :   STRUCT IDENTIFIER HAS struct_content END;
+
+struct_content  :   (prop_def*)? (method_def*)?;
+
+method_def      :   access_mod DEF IDENTIFIER LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN DO scope END;
+
+prop_def        :   access_mod PROP IDENTIFIER TERMINATOR;
+
+access_mod      :   PUB
+                |   PRV;
 
 bail_statement  :   BAIL TERMINATOR;
 

@@ -12,6 +12,8 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
     private Dictionary<string, Func<object?[]?, object?>> _builtinFunctions = new();
 
+    private Dictionary<string, Structure> _structs = new();
+
     private CallStack _stack = new();
 
     private bool _lastConditionResult;
@@ -684,6 +686,73 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             Array = array,
             ItemName = itemName,
             OptionalIteratorName = iteratorName
+        };
+    }
+
+    public override object? VisitStruct_def([NotNull] SpringParser.Struct_defContext context)
+    {
+        var props = context.struct_content().prop_def().Select(Visit).ToList();
+        var propDictionary = new Dictionary<string, Prop>();
+
+        foreach(var prop in props)
+            propDictionary.Add(((Prop)prop!).Name, (Prop)prop);
+
+        var methods = context.struct_content().method_def().Select(Visit).ToList();
+        var methodDictionary = new Dictionary<string, Method>();
+
+        foreach(var method in methods)
+            methodDictionary.Add(((Method)method!).Name, (Method)method);
+
+        var name = context.IDENTIFIER().GetText();
+
+        _structs.Add(name, new Structure
+        {
+            Methods = methodDictionary,
+            Props = propDictionary
+        });
+
+        return null;
+    }
+
+    public override object VisitProp_def([NotNull] SpringParser.Prop_defContext context)
+    {
+        var accessModifier = context.access_mod().GetText();
+        var isPublic = accessModifier == "pub";
+        var name = context.IDENTIFIER().GetText();
+
+        return new Prop
+        {
+            Name = name,
+            IsPublic = isPublic,
+            Value = null
+        };
+    }
+
+    public override object VisitMethod_def([NotNull] SpringParser.Method_defContext context)
+    {
+        var name = context.IDENTIFIER(0).GetText();
+
+        if (_builtinFunctions.ContainsKey(name))
+            throw new Exception($"function {name} already exists");
+
+        var parameters = new List<string>();
+
+        for(var i = 1; i < context.IDENTIFIER().Length; ++i) 
+        {
+            parameters.Add(context.IDENTIFIER(i).GetText());
+        }
+
+        var statements = context.scope().statement();
+
+        var accessModifier = context.access_mod().GetText();
+        var isPublic = accessModifier == "pub";
+
+        return new Method
+        {
+            Name = name,
+            Parameters = parameters.ToArray(),
+            Statements = statements,
+            IsPublic = isPublic
         };
     }
 }

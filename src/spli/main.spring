@@ -6,14 +6,14 @@ def dostuff(arr) do
     println $arr[1];
 end
 
+struct Dog has
+    pub prop age;
+
+    pub def bark() do
+        println "woof woof";
+    end
+end
+
 def main(args) do
     -- fibonacci int $args[0];
-
-    each "arg" inside $args do
-        if $arg == "exit" do 
-            bail out;
-        end
-
-        println $arg;
-    end
 end

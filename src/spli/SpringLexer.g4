@@ -16,6 +16,11 @@ WITH                : 'with';
 EACH                : 'each';
 SKIP_ITERATION      : 'go next';
 BAIL                : 'bail out';
+STRUCT              : 'struct';
+HAS                 : 'has';
+PROP                : 'prop';
+PUB                 : 'pub';
+PRV                 : 'prv';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;
