@@ -1,0 +1,17 @@
+[]
+    include "dog.spring";
+[/]
+
+def main(args) do
+
+    -- init the magic dog
+    new Dog -> $dog;
+
+    7 -> $dog.age;
+
+    println $dog.age;
+
+    $dog.bark();
+
+    $dog.run 30;
+end

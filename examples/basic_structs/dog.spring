@@ -1,11 +1,3 @@
-[]
-    include "./to_import.spring";
-[/]
-
-def dostuff(arr) do
-    println $arr[1];
-end
-
 struct Dog has
     pub prop age;
 
@@ -15,24 +7,14 @@ struct Dog has
 
     pub def run(dist) do
         loop 0 to $dist with "d" do
+
+            -- dog teleports from 15m to 20m
             if $d >= 15 and $d <= 20 do 
-                println "teleporting from 15m to 20";
+                println "teleporting from 15m to 20m";
                 go next;
             end
 
             println ("the dog ran " + string $d) + " meters";
         end
     end
-end
-
-def main(args) do
-    new Dog -> $dog;
-
-    7 -> $dog.age;
-
-    println $dog.age;
-
-    $dog.bark();
-
-    $dog.run 30;
 end
