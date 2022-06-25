@@ -77,19 +77,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     
 
-    public override object VisitProp_def([NotNull] SpringParser.Prop_defContext context)
-    {
-        var accessModifier = context.access_mod().GetText();
-        var isPublic = accessModifier == "pub";
-        var name = context.IDENTIFIER().GetText();
-
-        return new Prop
-        {
-            Name = name,
-            IsPublic = isPublic,
-            Value = null
-        };
-    }
+    
 
     public override object VisitMethod_def([NotNull] SpringParser.Method_defContext context)
     {
