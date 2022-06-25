@@ -1,1 +1,5 @@
-eval "dotnet publish -c Release -o ../../publish -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:RuntimeIdentifier=linux-x64"
+type=$1
+
+eval "dotnet publish -c Release -o ../../publish/$type -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:RuntimeIdentifier=$type"
+cd "../../publish/$type"
+rm *.pdb
