@@ -19,7 +19,6 @@ public static class ExecCommand
         }
 
         var fileExtension = Path.GetExtension(Path.GetFileName(filePath));
-        Console.WriteLine(fileExtension);
 
         if (fileExtension != ".spring" && fileExtension != ".spr")
         {

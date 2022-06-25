@@ -1,5 +1,4 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using Newtonsoft.Json;
 using spli.Cli.Commands;
 
 var app = new CommandLineApplication
