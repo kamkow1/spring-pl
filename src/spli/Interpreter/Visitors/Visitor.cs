@@ -67,26 +67,9 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     
 
-    public override object? VisitBail_statement([NotNull] SpringParser.Bail_statementContext context)
-    {
-        _shouldExitCurrentLoop = true;
-        return null;
-    }
+    
 
-    public override object VisitForLoopExpression([NotNull] SpringParser.ForLoopExpressionContext context)
-    {
-        var left = (int)Visit(context.expression(0))!;
-        var right = (int)Visit(context.expression(1))!;
-
-        var iteratorName = context.expression().ElementAtOrDefault(2) != null ? (string?)Visit(context.expression(2)) : null;
-
-        return new LoopConfiguration
-        {
-            Left = left,
-            Right = right,
-            IteratorName = iteratorName
-        };
-    }
+    
 
     public override object? VisitEach_loop_statement([NotNull] SpringParser.Each_loop_statementContext context)
     {
