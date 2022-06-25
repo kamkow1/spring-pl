@@ -73,16 +73,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     
 
-    public override object VisitEachLoopExpression([NotNull] SpringParser.EachLoopExpressionContext context)
-    {
-        var array = (object?[])Visit(context.expression(1))!;
-
-        var itemName = (string)Visit(context.expression(0))!;
-
-        var iteratorName = context.expression().ElementAtOrDefault(2) != null ? (string?)Visit(context.expression(2)) : null;
-
-        return new EachConfiguration(array, itemName, iteratorName);
-    }
+    
 
     public override object? VisitStruct_def([NotNull] SpringParser.Struct_defContext context)
     {
