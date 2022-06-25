@@ -8,7 +8,7 @@ def main(args) {
     -- with length argument (casted to int)
 
     -- string argument ( "rec" or "loop" )
-    $args[0] -> $type;
+    declare $args[0] -> $type;
 
     new Fibonacci -> $fib;
 
