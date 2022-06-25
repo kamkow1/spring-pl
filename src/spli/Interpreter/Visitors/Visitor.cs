@@ -65,11 +65,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     
 
-    public override object? VisitSkip_iteration([NotNull] SpringParser.Skip_iterationContext context)
-    {
-        _shouldSkipCurrentIteration = true;
-        return null;
-    }
+    
 
     public override object? VisitBail_statement([NotNull] SpringParser.Bail_statementContext context)
     {
