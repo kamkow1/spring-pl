@@ -682,12 +682,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         var iteratorName = context.expression().ElementAtOrDefault(2) != null ? (string?)Visit(context.expression(2)) : null;
 
-        return new EachConfiguration
-        {
-            Array = array,
-            ItemName = itemName,
-            OptionalIteratorName = iteratorName
-        };
+        return new EachConfiguration(array, itemName, iteratorName);
     }
 
     public override object? VisitStruct_def([NotNull] SpringParser.Struct_defContext context)
