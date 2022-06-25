@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-using Antlr4.Runtime.Misc;
 using static spli.Interpreter.Functions.IOFunctions;
 using static spli.Interpreter.Functions.CastingFucntions;
 using static spli.Interpreter.Functions.ArrayFunctions;
@@ -42,50 +40,4 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("arr_del",        new Func<object?[]?, object?>(args => ArrayDelete(args)));
         _builtinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
     }
-
-    
-
-   
-
-   
-
-    
-
-    
-
-    
-
-   
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 }
