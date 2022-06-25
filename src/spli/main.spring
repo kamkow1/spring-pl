@@ -1,27 +1,27 @@
 []
-    include "./to_import.spring";
+    
 [/]
 
-def dostuff(arr) do
+def dostuff(arr) {
     println $arr[1];
-end
+}
 
-struct Dog has
+struct Dog {
     pub prop age;
 
-    prv def bark() do
+    prv def bark() {
         println "woof woof";
-    end
+    }
 
-    pub def run(self, dist) do
-        loop 0 to $dist with "d" do
+    pub def run(self, dist) {
+        loop 0 to $dist with "d" {
             println ("the dog ran " + string $d) + " meters";
             $self.bark();
-        end
-    end
-end
+        }
+    }
+}
 
-def main(args) do
+def main(args) {
     new Dog -> $dog;
 
     7 -> $dog.age;
@@ -29,4 +29,4 @@ def main(args) do
     println $dog.age;
 
     $dog.run $dog, 30;
-end
+}

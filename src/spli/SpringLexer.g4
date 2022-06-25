@@ -1,8 +1,6 @@
 lexer grammar SpringLexer;
 
 DEF                 : 'def';
-DO                  : 'do';
-END                 : 'end';
 RETURN              : ('return' | 'exit with');
 IF                  : 'if';
 ELSE                : 'else';
@@ -17,7 +15,6 @@ EACH                : 'each';
 SKIP_ITERATION      : 'go next';
 BAIL                : 'bail out';
 STRUCT              : 'struct';
-HAS                 : 'has';
 PROP                : 'prop';
 PUB                 : 'pub';
 PRV                 : 'prv';
@@ -29,6 +26,8 @@ FLOAT_VALUE         : '-'? ('0'..'9')+ '.' ('0'..'9')*;
 BOOL_VALUE          : ('True' | 'False');
 NULL                : 'Null';
 
+DO                  : '{';
+END                 : '}';
 TERMINATOR          : ';';
 DOLLAR              : '$';
 ARROW               : '->';
@@ -36,8 +35,6 @@ LSQBR               : '[';
 RSQBR               : ']';
 LPAREN              : '(';
 RPAREN              : ')';
-LBRCKT              : '{';
-RBRCKT              : '}';
 COMMA               : ',';
 DOT                 : '.';
 EQUAL               : '==';

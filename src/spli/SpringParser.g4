@@ -24,7 +24,7 @@ statement       :   expression          TERMINATOR
 
 assign_struct_prop  : expression ARROW expression DOT IDENTIFIER;
 
-struct_def      :   STRUCT IDENTIFIER HAS struct_content END;
+struct_def      :   STRUCT IDENTIFIER DO struct_content END;
 
 struct_content  :   (prop_def*)? (method_def*)?;
 
