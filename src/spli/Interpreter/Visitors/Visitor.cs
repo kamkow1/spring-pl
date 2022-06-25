@@ -1,13 +1,12 @@
 using System.Text.RegularExpressions;
 using Antlr4.Runtime.Misc;
-using spli.Interpreter.Functions;
 using static spli.Interpreter.Functions.IOFunctions;
 using static spli.Interpreter.Functions.CastingFucntions;
 using static spli.Interpreter.Functions.ArrayFunctions;
 
 namespace spli.Interpreter.Visitors;
 
-public class Visitor : SpringParserBaseVisitor<Object?>
+public partial class Visitor : SpringParserBaseVisitor<Object?>
 {
     private Dictionary<string, Function> _availableFunctions = new();
 
@@ -44,10 +43,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
     }
 
-    public override object? VisitFile_content([NotNull] SpringParser.File_contentContext context)
-    {
-        return Visit(context.scope());
-    }
+    
 
     public override object? VisitScope([NotNull] SpringParser.ScopeContext context)
     {
