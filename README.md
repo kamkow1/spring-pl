@@ -47,7 +47,7 @@ struct Person {
 
 -- use commandline arguments
 def main(args) {
-    new Person -> $p;
+    declare new Person -> $p;
 
     $p.setMood $p, string $args[0];
 
