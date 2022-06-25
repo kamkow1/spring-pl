@@ -381,8 +381,8 @@ public class Visitor : SpringParserBaseVisitor<Object?>
     {
         var oper = context.math_oper().GetText();
 
-        var left = Visit(context.expression(0));
-        var right = Visit(context.expression(1));
+        var left = Visit(context.expression(0))!;
+        var right = Visit(context.expression(1))!;
 
         if (oper == "+")
         {
