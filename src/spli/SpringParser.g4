@@ -51,7 +51,7 @@ elif_statement  :   ELIF expression DO scope END;
 
 return_statement :  RETURN expression;
 
-assign_var      :   expression ARROW DOLLAR IDENTIFIER;
+assign_var      :   DECLARE? expression ARROW DOLLAR IDENTIFIER;
 
 array           :   LSQBR (expression (COMMA expression)*)? RSQBR;
 

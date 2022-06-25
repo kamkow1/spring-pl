@@ -18,11 +18,17 @@ struct Dog {
 }
 
 def main(args) {
-    new Dog -> $dog;
+    declare new Dog -> $dog;
 
     7 -> $dog.age;
 
     println $dog.age;
 
     $dog.run $dog, 30;
+
+    declare 7 -> $num;
+
+    67 -> $num;
+
+    println $num;
 }

@@ -10,9 +10,13 @@ public partial class Visitor
 
         var value = Visit(context.expression());
 
-       var currentActivationRecord = _stack.Peek();
+        var currentActivationRecord = _stack.Peek();
 
-       currentActivationRecord.SetItem(name, value);
+        if (context.DECLARE() is {})
+            currentActivationRecord.SetItem(name, value);
+        else
+            currentActivationRecord.Members[name] = value;
+
 
         return true;
     }

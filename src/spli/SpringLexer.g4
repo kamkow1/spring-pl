@@ -19,6 +19,7 @@ PROP                : 'prop';
 PUB                 : 'pub';
 PRV                 : 'prv';
 NEW                 : 'new';
+DECLARE             : 'declare';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;
