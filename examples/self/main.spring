@@ -3,7 +3,7 @@
 [/]
 
 def main() {
-    new Person -> $p;
+    declare new Person -> $p;
 
     $p.setHeight $p, 1.8;
 
