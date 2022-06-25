@@ -1,0 +1,2 @@
+use these args to print first n numbers
+--args rec --args n

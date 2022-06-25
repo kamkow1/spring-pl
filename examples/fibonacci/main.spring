@@ -10,8 +10,10 @@ def main(args) do
     -- string argument ( "rec" or "loop" )
     $args[0] -> $type;
 
+    new Fibonacci -> $fib;
+
     if $type == "rec" do
-        fibonacci_recursive int $args[1];
+        $fib.fibonacci_recursive $fib, int $args[1];
     end
 
     -- TODO: add a fibonacci sequence generator

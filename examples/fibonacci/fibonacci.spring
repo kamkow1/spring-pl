@@ -1,13 +1,16 @@
-def fibonacci_recursive_helper(a, b, counter, len) do
-    if $counter <= $len do
-        println $a;
+struct Fibonacci has 
 
-        fibonacci_recursive_helper $b, ($a + $b), $counter + 1, $len; 
+    prv def fibonacci_recursive_helper(self, a, b, counter, len) do
+        if $counter <= $len do
+            println $a;
+
+            $self.fibonacci_recursive_helper $self, $b, ($a + $b), $counter + 1, $len; 
+        end
+
     end
 
-end
-
-def fibonacci_recursive(len) do
-    -- start the sequence
-    fibonacci_recursive_helper 0, 1, 1, $len;
-end
+    pub def fibonacci_recursive(self, len) do
+        -- start the sequence
+        $self.fibonacci_recursive_helper $self, 0, 1, 1, $len;
+    end
+end     
