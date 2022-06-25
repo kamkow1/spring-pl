@@ -45,10 +45,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     
 
-    public override object? VisitEmphasizedExpression([NotNull] SpringParser.EmphasizedExpressionContext context)
-    {
-        return Visit(context.expression());
-    }
+   
 
     public override object? VisitIf_statement([NotNull] SpringParser.If_statementContext context)
     {
