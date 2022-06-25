@@ -5,7 +5,7 @@
 def main(args) {
 
     -- init the magic dog
-    new Dog -> $dog;
+    declare new Dog -> $dog;
 
     7 -> $dog.age;
 
