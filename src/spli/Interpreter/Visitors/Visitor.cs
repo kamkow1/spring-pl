@@ -83,14 +83,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     
 
-    public override object VisitNewStructExpression([NotNull] SpringParser.NewStructExpressionContext context)
-    {
-        var name = context.IDENTIFIER().GetText();
-
-        var structure = _structs[name];
-
-        return new StructureInstance(structure, "self");
-    }
+    
 
     public override object VisitAssign_struct_prop([NotNull] SpringParser.Assign_struct_propContext context)
     {
