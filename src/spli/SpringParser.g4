@@ -20,7 +20,10 @@ statement       :   expression          TERMINATOR
                 |   if_statement
                 |   loop_statement
                 |   each_loop_statement
-                |   struct_def;
+                |   struct_def
+                |   enum_def;
+
+enum_def        :   ENUM IDENTIFIER DO (IDENTIFIER (COMMA IDENTIFIER)*)? END;
 
 assign_struct_prop  : expression ARROW expression DOT IDENTIFIER;
 
@@ -70,7 +73,8 @@ expression      :   constant                                    #ConstantExpress
                 |   expression INSIDE expression (WITH expression)? #EachLoopExpression
                 |   expression DOT IDENTIFIER                   #PropAccessExpression
                 |   NEW IDENTIFIER                              #NewStructExpression
-                |   expression DOT ((IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN)) #MethodCallExpression;
+                |   expression DOT ((IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN)) #MethodCallExpression
+                |   IDENTIFIER DOT IDENTIFIER                   #EnumMemberAccessExpression;
 
 function_call   :   (IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN);
 

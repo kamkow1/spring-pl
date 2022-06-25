@@ -20,6 +20,7 @@ PUB                 : 'pub';
 PRV                 : 'prv';
 NEW                 : 'new';
 DECLARE             : 'declare';
+ENUM                : 'enum';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;
