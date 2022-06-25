@@ -42,33 +42,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("arr_del",        new Func<object?[]?, object?>(args => ArrayDelete(args)));
         _builtinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
     }
-
     
-
-    public override object? VisitScope([NotNull] SpringParser.ScopeContext context)
-    {
-        var activationRecord = new ActivationRecord();
-
-        _stack.Push(activationRecord);
-
-        foreach (var statement in context.statement())
-            Visit(statement);
-            
-        return _stack.Pop();
-    }
-
-    public override object VisitAssign_var([NotNull] SpringParser.Assign_varContext context)
-    {
-        var name = context.IDENTIFIER().GetText();
-
-        var value = Visit(context.expression());
-
-       var currentActivationRecord = _stack.Peek();
-
-       currentActivationRecord.SetItem(name, value);
-
-        return true;
-    }
 
     public override object? VisitConstant([NotNull] SpringParser.ConstantContext context)
     {
