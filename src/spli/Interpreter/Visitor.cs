@@ -768,6 +768,12 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         var propName = context.IDENTIFIER().GetText();
 
+        if (structure.Name == "self")
+        {
+            structure.BaseStructure.Props[propName].Value = value;
+            return true;
+        }
+
         if (structure.BaseStructure.Props[propName].IsPublic)
             structure.BaseStructure.Props[propName].Value = value;
         else throw new Exception($"cannot access a private property {propName}");

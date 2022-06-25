@@ -1,0 +1,12 @@
+[]
+    include "person.spring";
+[/]
+
+def main() do
+    new Person -> $p;
+
+    $p.setHeight $p, 1.8;
+
+    println $p.getHeight $p;
+
+end

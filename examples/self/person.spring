@@ -1,0 +1,16 @@
+struct Person has
+
+    prv prop height;
+    prv prop weight;
+    prv prop mood;
+
+    pub def setHeight(self, v) do
+        $v -> $self.height;
+    end
+
+    pub def getHeight(self) do
+        return $self.height;
+    end
+
+
+end
