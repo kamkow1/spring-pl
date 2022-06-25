@@ -35,7 +35,7 @@ public partial class Visitor
                 Visit(elifStatement);
         }
 
-        if (context.else_statement() is {} && _lastConditionResult)
+        if (context.else_statement() is {} && !_lastConditionResult)
             Visit(context.else_statement());
 
         return null;

@@ -1,3 +1,7 @@
+# enums
+
+example enum
+```
 [][/]
 
 enum FoodTypes {
@@ -9,7 +13,7 @@ enum FoodTypes {
 def main() {
     println "tell me your favourite meal";
 
-    read_console() -> $answer;
+    read_console -> $answer;
 
     if $answer == FoodTypes.PIZZA {
         println "let's make some pizza";
@@ -21,3 +25,13 @@ def main() {
         println "the healthies option";
     }
 }
+```
+
+## general syntax 
+```
+enum Name {
+    MEMBER1,
+    MEMBER2,
+    -- ...
+}
+```
