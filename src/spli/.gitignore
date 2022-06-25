@@ -7,3 +7,6 @@ Lexer/
 Parser/
 ModuleParser/
 ModuleLexer/
+# demo files
+./main.spring
+./to_import.spring
