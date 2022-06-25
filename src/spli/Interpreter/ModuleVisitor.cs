@@ -27,6 +27,6 @@ public class ModuleVisitor : ModuleParserBaseVisitor<object?>
 
         Console.WriteLine(path);
 
-        return Path.GetFullPath(_workingDirPath) + "/" + path;
+        return Path.Combine(Path.GetFullPath(_workingDirPath), path);
     }
 }
