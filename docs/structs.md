@@ -43,11 +43,11 @@ struct MyVeryCoolStruct {
 
     prv prop i_am_private;
 
-    def set_i_am_private(self, v) {
+    pub def set_i_am_private(self, v) {
         $v -> $self.i_am_private;
     }
 
-    def get_i_am_private(self) {
+    pub def get_i_am_private(self) {
         return $self.i_am_private;
     }
 }
