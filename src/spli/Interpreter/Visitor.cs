@@ -696,21 +696,17 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         var propDictionary = new Dictionary<string, Prop>();
 
         foreach(var prop in props)
-            propDictionary.Add(((Prop)prop!).Name, (Prop)prop);
+            propDictionary.Add(((Prop)prop!).Name!, (Prop)prop);
 
         var methods = context.struct_content().method_def().Select(Visit).ToList();
         var methodDictionary = new Dictionary<string, Method>();
 
         foreach(var method in methods)
-            methodDictionary.Add(((Method)method!).Name, (Method)method);
+            methodDictionary.Add(((Method)method!).Name!, (Method)method);
 
         var name = context.IDENTIFIER().GetText();
 
-        _structs.Add(name, new Structure
-        {
-            Methods = methodDictionary,
-            Props = propDictionary
-        });
+        _structs.Add(name, new Structure(methodDictionary, propDictionary));
 
         return null;
     }
@@ -748,22 +744,19 @@ public class Visitor : SpringParserBaseVisitor<Object?>
         var accessModifier = context.access_mod().GetText();
         var isPublic = accessModifier == "pub";
 
-        return new Method
-        {
-            Name = name,
-            Parameters = parameters.ToArray(),
-            Statements = statements,
-            IsPublic = isPublic
-        };
+        return new Method(name, isPublic, statements, parameters.ToArray());
     }
 
     public override object? VisitPropAccessExpression([NotNull] SpringParser.PropAccessExpressionContext context)
     {
-        var structure = (Structure)Visit(context.expression())!;
+        var structure = (StructureInstance)Visit(context.expression())!;
         var propName = context.IDENTIFIER().GetText();
 
-        if (structure.Props[propName].IsPublic)
-            return structure.Props[propName].Value;
+        if (structure.Name == "self")
+            return structure.BaseStructure.Props[propName].Value;
+
+        if (structure.BaseStructure.Props[propName].IsPublic)
+            return structure.BaseStructure.Props[propName].Value;
 
         throw new Exception($"cannot access a private property {propName}");
     }
@@ -774,22 +767,18 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         var structure = _structs[name];
 
-        return new Structure
-        {
-            Methods = structure.Methods,
-            Props = structure.Props
-        };
+        return new StructureInstance(structure, "self");
     }
 
     public override object VisitAssign_struct_prop([NotNull] SpringParser.Assign_struct_propContext context)
     {
         var value = Visit(context.expression(0));
-        var structure = (Structure)Visit(context.expression(1))!;
+        var structure = (StructureInstance)Visit(context.expression(1))!;
 
         var propName = context.IDENTIFIER().GetText();
 
-        if (structure.Props[propName].IsPublic)
-            structure.Props[propName].Value = value;
+        if (structure.BaseStructure.Props[propName].IsPublic)
+            structure.BaseStructure.Props[propName].Value = value;
         else throw new Exception($"cannot access a private property {propName}");
 
         return true;
@@ -809,15 +798,15 @@ public class Visitor : SpringParserBaseVisitor<Object?>
             arguments.Add(Visit(item.value));
         }
 
-        var structure = (Structure)Visit(context.expression(0))!;
-        var method = structure.Methods[name];
+        var structure = (StructureInstance)Visit(context.expression(0))!;
+        var method = structure.BaseStructure.Methods[name];
 
-        if (!method.IsPublic)
+        if (!method.IsPublic && structure.Name != "self")
             throw new Exception($"cannot access a private method {name}");
 
         var activationRecord = new ActivationRecord();
 
-        foreach(var parameter in method.Parameters.Select((value, i) => (value, i)))
+        foreach(var parameter in method.Parameters!.Select((value, i) => (value, i)))
         {
             if (activationRecord.CheckIfMemberExists(parameter.value))
                 continue;

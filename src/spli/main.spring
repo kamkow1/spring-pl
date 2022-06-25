@@ -9,18 +9,14 @@ end
 struct Dog has
     pub prop age;
 
-    pub def bark() do
+    prv def bark() do
         println "woof woof";
     end
 
-    pub def run(dist) do
+    pub def run(self, dist) do
         loop 0 to $dist with "d" do
-            if $d >= 15 and $d <= 20 do 
-                println "teleporting from 15m to 20";
-                go next;
-            end
-
             println ("the dog ran " + string $d) + " meters";
+            $self.bark();
         end
     end
 end
@@ -32,7 +28,5 @@ def main(args) do
 
     println $dog.age;
 
-    $dog.bark();
-
-    $dog.run 30;
+    $dog.run $dog, 30;
 end
