@@ -43,29 +43,6 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
     }
 
-    public override object? VisitFunction_def([NotNull] SpringParser.Function_defContext context)
-    {
-        var name = context.IDENTIFIER(0).GetText();
-
-        if (_builtinFunctions.ContainsKey(name))
-            throw new Exception($"function {name} already exists");
-
-        var parameters = new List<string>();
-
-        for(var i = 1; i < context.IDENTIFIER().Length; ++i) 
-        {
-            parameters.Add(context.IDENTIFIER(i).GetText());
-        }
-
-        var statements = context.scope().statement();
-
-        var function = new Function(parameters.ToArray(), statements);
-
-        _availableFunctions.Add(name, function);
-
-        return null;
-    }
-
     public override object? VisitFunction_call([NotNull] SpringParser.Function_callContext context)
     {
         var name = context.IDENTIFIER().GetText();
