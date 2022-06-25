@@ -13,18 +13,12 @@ public static class ExecCommand
         var filePath = filePathArgument?.Value;
 
         if (filePath is null)
-        {
-            Console.WriteLine($"could not resolve given path ${filePath}");
-            Environment.Exit(1);
-        }
+            throw new Exception($"could not resolve given path ${filePath}");
 
         var fileExtension = Path.GetExtension(Path.GetFileName(filePath));
 
         if (fileExtension != ".spring" && fileExtension != ".spr")
-        {
-            Console.WriteLine($"cannot execute file with file extension {fileExtension}");
-            Environment.Exit(1);
-        }
+            throw new Exception($"cannot execute file with file extension {fileExtension}");
 
         var fileContent = File.ReadAllText(filePath);
 
