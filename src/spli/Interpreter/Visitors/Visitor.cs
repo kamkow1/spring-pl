@@ -43,19 +43,6 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
     }
 
-    public override object? VisitIdentifier_expr([NotNull] SpringParser.Identifier_exprContext context)
-    {
-        var activationRecord = _stack.Peek();
-        var name = context.IDENTIFIER().GetText();
-
-        var previousAr = _stack.GetPreviousArOrCurrent();
-
-        if (previousAr.Members.ContainsKey(name))
-            return previousAr.GetItem(name);
-
-        return activationRecord.GetItem(name);
-    }
-
     public override object? VisitFunction_def([NotNull] SpringParser.Function_defContext context)
     {
         var name = context.IDENTIFIER(0).GetText();
