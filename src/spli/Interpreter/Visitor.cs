@@ -135,11 +135,7 @@ public class Visitor : SpringParserBaseVisitor<Object?>
 
         var statements = context.scope().statement();
 
-        var function = new Function
-        {
-            Parameters = parameters.ToArray(),
-            Statements = statements
-        };
+        var function = new Function(parameters.ToArray(), statements);
 
         _availableFunctions.Add(name, function);
 
