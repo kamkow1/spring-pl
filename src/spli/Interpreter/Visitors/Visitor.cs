@@ -53,10 +53,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     
 
-    public override object VisitNegatedExpression([NotNull] SpringParser.NegatedExpressionContext context)
-    {
-        return !((bool)Visit(context.expression())!);
-    }
+    
 
     public override object VisitCompareExpression([NotNull] SpringParser.CompareExpressionContext context)
     {
