@@ -1,5 +1,5 @@
 using Antlr4.Runtime;
-using spli.Interpreter;
+using spli.Interpreter.Visitors;
 
 public static class Initializer
 {

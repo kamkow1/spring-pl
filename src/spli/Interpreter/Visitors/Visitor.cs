@@ -1,11 +1,11 @@
 using System.Text.RegularExpressions;
 using Antlr4.Runtime.Misc;
+using spli.Interpreter.Functions;
 using static spli.Interpreter.Functions.IOFunctions;
 using static spli.Interpreter.Functions.CastingFucntions;
 using static spli.Interpreter.Functions.ArrayFunctions;
-using Newtonsoft.Json;
 
-namespace spli.Interpreter;
+namespace spli.Interpreter.Visitors;
 
 public class Visitor : SpringParserBaseVisitor<Object?>
 {

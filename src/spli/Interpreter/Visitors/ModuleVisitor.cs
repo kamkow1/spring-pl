@@ -1,8 +1,6 @@
-using System.Linq;
 using Antlr4.Runtime.Misc;
-using Newtonsoft.Json;
 
-namespace spli.Interpreter;
+namespace spli.Interpreter.Visitors;
 
 public class ModuleVisitor : ModuleParserBaseVisitor<object?>
 {
