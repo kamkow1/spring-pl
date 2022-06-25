@@ -18,7 +18,7 @@ struct Dog {
 }
 
 def main(args) {
-    declare new Dog -> $dog;
+    new Dog -> $dog;
 
     7 -> $dog.age;
 

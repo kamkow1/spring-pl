@@ -8,7 +8,7 @@ public class ActivationRecord
 
     public void SetItem(string key, object? value)
     {
-        Members.Add(key, value);
+        Members[key] = value;
     }
 
     public object? GetItem(string key)
