@@ -43,11 +43,11 @@ each_loop_statement:     EACH expression DO scope END;
 
 loop_statement  :   LOOP expression? DO scope END;
 
-if_statement    :   IF expression DO scope (elif_statement*)? else_statement? END;
+if_statement    :   IF expression DO scope END (elif_statement*)? else_statement?;
 
-else_statement  :   ELSE DO scope;
+else_statement  :   ELSE DO scope END;
 
-elif_statement  :   ELIF expression DO scope;
+elif_statement  :   ELIF expression DO scope END;
 
 return_statement :  RETURN expression;
 
