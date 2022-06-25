@@ -1,16 +1,15 @@
-struct Fibonacci has 
+struct Fibonacci {
 
-    prv def fibonacci_recursive_helper(self, a, b, counter, len) do
-        if $counter <= $len do
+    prv def fibonacci_recursive_helper(self, a, b, counter, len) {
+        if $counter <= $len {
             println $a;
 
             $self.fibonacci_recursive_helper $self, $b, ($a + $b), $counter + 1, $len; 
-        end
+        }
+    }
 
-    end
-
-    pub def fibonacci_recursive(self, len) do
+    pub def fibonacci_recursive(self, len) {
         -- start the sequence
         $self.fibonacci_recursive_helper $self, 0, 1, 1, $len;
-    end
-end     
+    }
+}   

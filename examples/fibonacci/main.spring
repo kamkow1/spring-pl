@@ -2,7 +2,7 @@
     include "fibonacci.spring";
 [/]
 
-def main(args) do
+def main(args) {
 
     -- call included function
     -- with length argument (casted to int)
@@ -12,10 +12,10 @@ def main(args) do
 
     new Fibonacci -> $fib;
 
-    if $type == "rec" do
+    if $type == "rec" {
         $fib.fibonacci_recursive $fib, int $args[1];
-    end
+    }
 
     -- TODO: add a fibonacci sequence generator
     -- with a loop
-end
+}
