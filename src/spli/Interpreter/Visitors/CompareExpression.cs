@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Antlr4.Runtime.Misc;
 
 namespace spli.Interpreter.Visitors;
@@ -12,7 +11,7 @@ public partial class Visitor
         var left = Visit(context.expression(0));
         var right = Visit(context.expression(1));
 
-        if (new Regex("^==$", RegexOptions.Compiled).IsMatch(opr))
+        if (opr == "==")
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) == int.Parse(right.ToString()!);
@@ -26,7 +25,7 @@ public partial class Visitor
                 return left.ToString() == right.ToString();
         }
 
-        if (new Regex("^!=$", RegexOptions.Compiled).IsMatch(opr))
+        if (opr == "!=")
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) != int.Parse(right.ToString()!);
@@ -40,7 +39,7 @@ public partial class Visitor
                 return left.ToString() != right.ToString();
         }
 
-        if (new Regex("^>=$", RegexOptions.Compiled).IsMatch(opr))
+        if (opr == ">=")
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) >= int.Parse(right.ToString()!);
@@ -55,7 +54,7 @@ public partial class Visitor
             else throw new Exception($"cannot compare if {left} is qreater or equal than {right} since they're not either int, float or string");
         }
 
-        if (new Regex("^<=$", RegexOptions.Compiled).IsMatch(opr))
+        if (opr == "<=")
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) <= int.Parse(right.ToString()!);
@@ -70,7 +69,7 @@ public partial class Visitor
             else throw new Exception($"cannot compare if {left} is less or equal than {right} since they're not either int, float or string");
         }
 
-        if (new Regex("^>$", RegexOptions.Compiled).IsMatch(opr))
+        if (opr == ">")
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) > int.Parse(right.ToString()!);
@@ -85,7 +84,7 @@ public partial class Visitor
             else throw new Exception($"cannot compare if {left} is qreater than {right} since they're not either int, float or string");
         }
 
-        if (new Regex("^<$", RegexOptions.Compiled).IsMatch(opr))
+        if (opr == "<")
         {
             if (left is int && right is int)
                 return int.Parse(left.ToString()!) < int.Parse(right.ToString()!);
