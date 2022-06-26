@@ -74,7 +74,8 @@ expression      :   constant                                    #ConstantExpress
                 |   expression DOT IDENTIFIER                   #PropAccessExpression
                 |   NEW IDENTIFIER                              #NewStructExpression
                 |   expression DOT ((IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN)) #MethodCallExpression
-                |   IDENTIFIER DOT IDENTIFIER                   #EnumMemberAccessExpression;
+                |   IDENTIFIER DOT IDENTIFIER                   #EnumMemberAccessExpression
+                |   LAMBDA COLON ((IDENTIFIER (COMMA IDENTIFIER)*)? | LPAREN RPAREN) LONG_ARROW DO scope END #LambdaExpression;
 
 function_call   :   (IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN);
 

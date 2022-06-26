@@ -1,5 +1,7 @@
 [][/]
 
 def main() {
-
+    lambda: x => { 
+        println "eoeoe"; 
+    } -> $l;
 }

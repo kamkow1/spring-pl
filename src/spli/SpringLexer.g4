@@ -21,6 +21,7 @@ PRV                 : 'prv';
 NEW                 : 'new';
 DECLARE             : 'declare';
 ENUM                : 'enum';
+LAMBDA              : 'lambda';
 
 STRING_VALUE        : '"' (~[\\"\r\n])* '"';
 INTEGER_VALUE       : '-'? '0'..'9'+;
@@ -33,6 +34,7 @@ END                 : '}';
 TERMINATOR          : ';';
 DOLLAR              : '$';
 ARROW               : '->';
+LONG_ARROW          : '=>';
 LSQBR               : '[';
 RSQBR               : ']';
 LPAREN              : '(';
