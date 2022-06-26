@@ -1,6 +1,7 @@
 using static spli.Interpreter.Functions.IOFunctions;
 using static spli.Interpreter.Functions.CastingFucntions;
 using static spli.Interpreter.Functions.ArrayFunctions;
+using static spli.Interpreter.Functions.WebFunctions;
 
 namespace spli.Interpreter.Visitors;
 
@@ -41,5 +42,8 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("arr_add",        new Func<object?[]?, object?>(args => ArrayAdd(args)));
         _builtinFunctions.Add("arr_del",        new Func<object?[]?, object?>(args => ArrayDelete(args)));
         _builtinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
+
+        // web
+        _builtinFunctions.Add("serve_static",   new Func<object?[]?, object?>(args => ServeStatic(args)));
     }
 }
