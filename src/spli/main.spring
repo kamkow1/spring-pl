@@ -2,6 +2,8 @@
 
 def main() {
     lambda: x => { 
-        println "eoeoe"; 
-    } -> $l;
+        return $x ^ 2;
+    } -> $square;
+
+    println square 2;
 }

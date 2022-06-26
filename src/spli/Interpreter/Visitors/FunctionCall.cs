@@ -14,11 +14,18 @@ public partial class Visitor
         if (_builtinFunctions.ContainsKey(name))
             return _builtinFunctions[name](arguments);
 
-        var function = _availableFunctions[name];
+        var previousAr = _stack.Peek();
+
+        Function? function;
+
+        if (previousAr.Members.ContainsKey(name))
+            function = previousAr.Members[name] as Function;
+        else
+            function = _availableFunctions[name];
 
         var activationRecord = new ActivationRecord();
 
-        foreach(var parameter in function.Parameters.Select((value, i) => (value, i)))
+        foreach(var parameter in function!.Parameters.Select((value, i) => (value, i)))
         {
             if (activationRecord.CheckIfMemberExists(parameter.value))
                 continue;
