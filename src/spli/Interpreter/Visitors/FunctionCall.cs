@@ -1,5 +1,6 @@
 using Antlr4.Runtime.Misc;
 using spli.Interpreter.Functions;
+using spli.Interpreter.Stack;
 
 namespace spli.Interpreter.Visitors;
 

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace spli.Interpreter;
+namespace spli.Interpreter.Stack;
 
 public class ActivationRecord
 {

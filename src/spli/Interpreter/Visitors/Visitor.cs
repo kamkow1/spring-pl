@@ -5,6 +5,7 @@ using static spli.Interpreter.BuiltinFunctions.Web.WebFunctions;
 using spli.Interpreter.Functions;
 using spli.Interpreter.Enums;
 using spli.Interpreter.Struct;
+using spli.Interpreter.Stack;
 
 namespace spli.Interpreter.Visitors;
 
