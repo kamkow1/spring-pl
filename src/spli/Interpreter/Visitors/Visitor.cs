@@ -4,6 +4,7 @@ using static spli.Interpreter.BuiltinFunctions.IO.IOFunctions;
 using static spli.Interpreter.BuiltinFunctions.Casting.CastingFucntions;
 using static spli.Interpreter.BuiltinFunctions.Array.ArrayFunctions;
 using static spli.Interpreter.BuiltinFunctions.Web.WebFunctions;
+using spli.Interpreter.Functions;
 
 namespace spli.Interpreter.Visitors;
 
