@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using spli.Interpreter.Functions;
 
 namespace spli.Interpreter.BuiltinFunctions.Web;
 
@@ -7,12 +8,22 @@ public class WebServer
 {
     private IWebHost? _server;
 
-    public void createServer()
+    public void CreateServer()
     {
-        var builder = WebHost.CreateDefaultBuilder();
-        var server = builder.Build();
+        var server = WebHost.CreateDefaultBuilder()
+            .UseStartup<WebServerStartup>()
+            .Build();
+
         _server = server;
     }
 
+    public void CreateEndpoint(string path, Function function)
+    {
+        WebServerStartup.AddEndpoint(WebServerStartup.Endpoints, new EndpointConfig(path, function));
+    }
 
+    public void RunServer()
+    {
+        _server!.Run();
+    }
 }

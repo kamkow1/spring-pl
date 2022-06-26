@@ -5,9 +5,17 @@ def t_fn(x) {
 }
 
 def main() {
-    lambda: () => { 
+    /* lambda: () => { 
        println "4534";
     } -> $square;
 
-    t_fn $square;
+    t_fn $square; */
+
+    create_server();
+
+    create_endpoint "/roman", lambda: () => {
+        println "eoeoe";
+    };
+
+    run_server();
 }
