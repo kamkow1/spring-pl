@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace spli.Interpreter.Functions.IO;
+namespace spli.Interpreter.BuiltinFunctions.IO;
 
 public static class IOFunctions
 {

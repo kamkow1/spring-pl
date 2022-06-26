@@ -1,9 +1,9 @@
 using spli.Interpreter.Struct;
 
-using static spli.Interpreter.Functions.IO.IOFunctions;
-using static spli.Interpreter.Functions.Casting.CastingFucntions;
-using static spli.Interpreter.Functions.Array.ArrayFunctions;
-using static spli.Interpreter.Functions.Web.WebFunctions;
+using static spli.Interpreter.BuiltinFunctions.IO.IOFunctions;
+using static spli.Interpreter.BuiltinFunctions.Casting.CastingFucntions;
+using static spli.Interpreter.BuiltinFunctions.Array.ArrayFunctions;
+using static spli.Interpreter.BuiltinFunctions.Web.WebFunctions;
 
 namespace spli.Interpreter.Visitors;
 

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace spli.Interpreter.Functions.Array;
+namespace spli.Interpreter.BuiltinFunctions.Array;
 
 public static class ArrayFunctions
 {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace spli.Interpreter.Functions.Web;
+namespace spli.Interpreter.BuiltinFunctions.Web;
 
 public class WebServer
 {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace spli.Interpreter.Functions.Web;
+namespace spli.Interpreter.BuiltinFunctions.Web;
 
 public static class WebFunctions
 {
