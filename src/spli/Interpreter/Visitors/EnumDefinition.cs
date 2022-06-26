@@ -1,4 +1,5 @@
 using Antlr4.Runtime.Misc;
+using spli.Interpreter.Enums;
 
 namespace spli.Interpreter.Visitors;
 
@@ -22,7 +23,7 @@ public partial class Visitor
         foreach(var m in members)
             memberDictionary.Add(m, m);
 
-        var e = new Enum(memberDictionary);
+        var e = new EnumStructure(memberDictionary);
 
         _enums.Add(name, e);
 

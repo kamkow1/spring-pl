@@ -1,10 +1,10 @@
-using spli.Interpreter.Struct;
-
 using static spli.Interpreter.BuiltinFunctions.IO.IOFunctions;
 using static spli.Interpreter.BuiltinFunctions.Casting.CastingFucntions;
 using static spli.Interpreter.BuiltinFunctions.Array.ArrayFunctions;
 using static spli.Interpreter.BuiltinFunctions.Web.WebFunctions;
 using spli.Interpreter.Functions;
+using spli.Interpreter.Enums;
+using spli.Interpreter.Struct;
 
 namespace spli.Interpreter.Visitors;
 
@@ -16,7 +16,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     private Dictionary<string, Structure> _structs = new();
 
-    private Dictionary<string, Enum> _enums = new();
+    private Dictionary<string, EnumStructure> _enums = new();
 
     private CallStack _stack = new();
 
