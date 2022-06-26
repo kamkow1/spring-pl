@@ -1,3 +1,5 @@
+namespace spli.Interpreter.Loop;
+
 public class LoopConfiguration 
 {
     public int Left { get; set; } 

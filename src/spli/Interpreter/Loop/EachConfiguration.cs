@@ -1,4 +1,4 @@
-namespace spli.Interpreter;
+namespace spli.Interpreter.Loop;
 
 public class EachConfiguration
 {
