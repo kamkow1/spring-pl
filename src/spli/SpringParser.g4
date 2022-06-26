@@ -89,7 +89,8 @@ math_oper       :   PLUS
                 |   MINUS
                 |   DIV
                 |   MULT
-                |   POW;
+                |   POW
+                |   PERCENT;
 
 compare_oper    :   EQUAL
                 |   NOT_EQUAL

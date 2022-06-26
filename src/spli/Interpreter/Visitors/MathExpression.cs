@@ -52,6 +52,19 @@ public partial class Visitor
             else throw new Exception($"cannot multiply {left} by {right} since they're not either int or float");
         }
 
+        if (oper == "%")
+        {
+            if (left is int && right is int)
+                return int.Parse(left.ToString()!) % int.Parse(right.ToString()!);
+            else if (left is int && right is float)
+                return int.Parse(left.ToString()!) % float.Parse(right.ToString()!);
+            else if (left is float && right is int)
+                return float.Parse(left.ToString()!) % int.Parse(right.ToString()!);
+            else if (left is float && right is float)
+                return float.Parse(left.ToString()!) % float.Parse(right.ToString()!);
+            else throw new Exception($"cannot multiply {left} by {right} since they're not either int or float");
+        }
+
         if (oper == "/")
         {
             if (int.Parse(right.ToString()!) == 0)
