@@ -1,4 +1,4 @@
-namespace spli.Interpreter;
+namespace spli.Interpreter.Struct;
 
 public class StructureInstance
 {

@@ -1,3 +1,5 @@
+using spli.Interpreter.Struct;
+
 using static spli.Interpreter.Functions.IO.IOFunctions;
 using static spli.Interpreter.Functions.Casting.CastingFucntions;
 using static spli.Interpreter.Functions.Array.ArrayFunctions;

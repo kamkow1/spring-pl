@@ -1,9 +1,13 @@
 [][/]
 
+def t_fn(x) {
+    x();
+}
+
 def main() {
-    lambda: x => { 
-        return $x ^ 2;
+    lambda: () => { 
+       println "4534";
     } -> $square;
 
-    println square 2;
+    t_fn $square;
 }
