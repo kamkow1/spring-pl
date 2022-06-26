@@ -1,4 +1,4 @@
-namespace spli.Interpreter.Functions;
+namespace spli.Interpreter.Functions.Casting;
 
 public static class CastingFucntions
 {

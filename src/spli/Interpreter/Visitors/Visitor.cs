@@ -1,7 +1,7 @@
-using static spli.Interpreter.Functions.IOFunctions;
-using static spli.Interpreter.Functions.CastingFucntions;
-using static spli.Interpreter.Functions.ArrayFunctions;
-using static spli.Interpreter.Functions.WebFunctions;
+using static spli.Interpreter.Functions.IO.IOFunctions;
+using static spli.Interpreter.Functions.Casting.CastingFucntions;
+using static spli.Interpreter.Functions.Array.ArrayFunctions;
+using static spli.Interpreter.Functions.Web.WebFunctions;
 
 namespace spli.Interpreter.Visitors;
 
