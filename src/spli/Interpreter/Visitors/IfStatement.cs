@@ -9,7 +9,7 @@ public partial class Visitor
     {
         var condition = (bool)Visit(context.expression())!;
 
-        _lastConditionResult = condition;
+        LastConditionResult = condition;
 
         var statements = context.scope().statement(); 
 
@@ -36,7 +36,7 @@ public partial class Visitor
                 Visit(elifStatement);
         }
 
-        if (context.else_statement() is {} && !_lastConditionResult)
+        if (context.else_statement() is {} && !LastConditionResult)
             Visit(context.else_statement());
 
         return null;

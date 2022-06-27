@@ -23,7 +23,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     public CallStack _stack = new();
 
-    public bool _lastConditionResult;
+    public bool LastConditionResult;
 
     public bool _shouldSkipCurrentIteration = false;
 

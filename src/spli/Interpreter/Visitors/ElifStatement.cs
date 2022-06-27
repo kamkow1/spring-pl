@@ -8,7 +8,7 @@ public partial class Visitor
     public override object? VisitElif_statement([NotNull] SpringParser.Elif_statementContext context)
     {
         var elifCondition = (bool)Visit(context.expression())!;
-        _lastConditionResult = elifCondition;
+        LastConditionResult = elifCondition;
 
         if (elifCondition! == true)
         {
