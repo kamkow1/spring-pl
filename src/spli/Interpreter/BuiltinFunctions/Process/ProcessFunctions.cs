@@ -4,7 +4,7 @@ namespace spli.Interpreter.BuiltinFunctions.Process;
 
 public static class ProcessFunctions
 {
-    private static System.Diagnostics.Process _process;
+    private static System.Diagnostics.Process? _process;
 
     public static object? CreateProc(object?[]? args)
     {

@@ -35,6 +35,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
     {
         // io
         _builtinFunctions.Add("println",        new Func<object?[]?, object?>(args => Println(args)));
+        _builtinFunctions.Add("println_j",      new Func<object?[]?, object?>(args => PrintlnJson(args)));
         _builtinFunctions.Add("print",          new Func<object?[]?, object?>(args => Print(args)));
         _builtinFunctions.Add("read_console",   new Func<object?[]?, object?>(_ => ReadConsole()));
 
