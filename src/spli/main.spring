@@ -1,21 +1,14 @@
 [][/]
 
-def t_fn(x) {
-    x();
-}
-
 def main() {
-    /* lambda: () => { 
-       println "4534";
-    } -> $square;
-
-    t_fn $square; */
 
     create_server();
 
-    create_endpoint "/roman", lambda: () => {
+    lambda: () => {
         println "eoeoe";
-    };
+    } -> $roman_handler;
+
+    create_endpoint "/roman", $roman_handler -> $roman_endpoint;
 
     run_server();
 }

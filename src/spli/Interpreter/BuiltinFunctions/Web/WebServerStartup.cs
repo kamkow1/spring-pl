@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using spli.Interpreter.Functions;
 
 namespace spli.Interpreter.BuiltinFunctions.Web;
 
@@ -10,11 +12,6 @@ public class WebServerStartup
     public static void AddEndpoint(List<EndpointConfig> endpoints, EndpointConfig endpoint)
     {
         endpoints.Add(endpoint);
-    }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // config services
     }
 
     public void Configure(IApplicationBuilder app)
@@ -29,7 +26,7 @@ public class WebServerStartup
             {
                 endpoints.MapGet(endpoint.Path, () => 
                 {
-                    Console.WriteLine("endpoint was hit");
+                    
                 });
             }); 
         }

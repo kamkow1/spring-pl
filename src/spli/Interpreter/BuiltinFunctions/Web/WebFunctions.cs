@@ -37,10 +37,8 @@ public static class WebFunctions
         var function = (Function)args![1]!;
 
         _server.CreateEndpoint(path, function);
-
         return null;
     }
-
     public static object? RunServer()
     {
         _server.RunServer();

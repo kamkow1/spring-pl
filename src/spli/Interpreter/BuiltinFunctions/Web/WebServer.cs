@@ -17,9 +17,9 @@ public class WebServer
         _server = server;
     }
 
-    public void CreateEndpoint(string path, Function function)
+    public void CreateEndpoint(string path, Function handler)
     {
-        WebServerStartup.AddEndpoint(WebServerStartup.Endpoints, new EndpointConfig(path, function));
+        WebServerStartup.AddEndpoint(WebServerStartup.Endpoints, new EndpointConfig(path, handler));
     }
 
     public void RunServer()
