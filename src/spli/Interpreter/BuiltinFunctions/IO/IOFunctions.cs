@@ -9,7 +9,7 @@ public static class IOFunctions
         if (args is not null && args.Length != 0)
         {
             foreach(var arg in args)
-                Console.WriteLine(JsonConvert.SerializeObject(arg, Formatting.Indented));
+                Console.WriteLine(JsonConvert.SerializeObject(arg));
         }
 
         return null;
@@ -26,7 +26,7 @@ public static class IOFunctions
         return null;
     }
 
-    public static object? ReadConsole()
+    public static string? ReadConsole()
     {
         return Console.ReadLine();
     }
