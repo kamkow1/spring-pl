@@ -3,6 +3,8 @@ using spli.Interpreter.Visitors;
 
 public static class Initializer
 {
+    public static Visitor Visitor = new();
+
     public static void Run(string program, string filePath, string[] args)
     {
         try
@@ -40,9 +42,7 @@ public static class Initializer
 
             var programParseContext = programParser.parse();
 
-            var visitor = new Visitor();
-
-            visitor.Visit(programParseContext);
+            Visitor.Visit(programParseContext);
         }
         catch (System.Exception e)
         {

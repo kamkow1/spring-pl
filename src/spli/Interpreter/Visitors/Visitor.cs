@@ -11,21 +11,23 @@ namespace spli.Interpreter.Visitors;
 
 public partial class Visitor : SpringParserBaseVisitor<Object?>
 {
-    private Dictionary<string, Function> _availableFunctions = new();
+    public Dictionary<string, Function> _availableFunctions = new();
 
-    private Dictionary<string, Func<object?[]?, object?>> _builtinFunctions = new();
+    public Dictionary<string, Func<object?[]?, object?>> _builtinFunctions = new();
 
-    private Dictionary<string, Structure> _structs = new();
+    public Dictionary<string, Structure> _structs = new();
 
-    private Dictionary<string, EnumStructure> _enums = new();
+    public Dictionary<string, EnumStructure> _enums = new();
 
-    private CallStack _stack = new();
+    public CallStack _stack = new();
 
-    private bool _lastConditionResult;
+    public bool _lastConditionResult;
 
-    private bool _shouldSkipCurrentIteration = false;
+    public bool _shouldSkipCurrentIteration = false;
 
-    private bool _shouldExitCurrentLoop = false;
+    public bool _shouldExitCurrentLoop = false;
+
+    public SpringParser.Function_callContext functionCallContext;
 
     public Visitor()
     {
@@ -51,6 +53,6 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("serve_static",   new Func<object?[]?, object?>(args => ServeStatic(args)));
         _builtinFunctions.Add("create_server",  new Func<object?[]?, object?>(args => CreateServer(args)));
         _builtinFunctions.Add("create_endpoint",new Func<object?[]?, object?>(args => CreateEndpoint(args)));
-        _builtinFunctions.Add("run_server",     new Func<object?[]?, object?>(_ => RunServer()));
+        _builtinFunctions.Add("run_server",     new Func<object?[]?, object?>(_ => { RunServer(); return null; }));
     }
 }

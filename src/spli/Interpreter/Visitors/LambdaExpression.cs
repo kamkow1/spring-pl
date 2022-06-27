@@ -14,6 +14,8 @@ public partial class Visitor
 
         var statements = context.scope().statement();
 
-        return new Function(parameters.ToArray(), statements);
+        var name = $"lambda-{Guid.NewGuid().ToString()}";
+
+        return new Function(name, parameters.ToArray(), statements);
     }
 }

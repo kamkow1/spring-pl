@@ -21,7 +21,7 @@ public partial class Visitor
 
         var statements = context.scope().statement();
 
-        var function = new Function(parameters.ToArray(), statements);
+        var function = new Function(name, parameters.ToArray(), statements);
 
         _availableFunctions.Add(name, function);
 

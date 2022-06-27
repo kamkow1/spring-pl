@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
 using spli.Interpreter.Functions;
 
 namespace spli.Interpreter.BuiltinFunctions.Web;
@@ -39,9 +40,8 @@ public static class WebFunctions
         _server.CreateEndpoint(path, function);
         return null;
     }
-    public static object? RunServer()
+    public static void RunServer()
     {
         _server.RunServer();
-        return null;
     }
 }

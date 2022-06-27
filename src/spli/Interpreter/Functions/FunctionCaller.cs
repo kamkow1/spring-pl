@@ -10,12 +10,14 @@ public static class FunctionCaller
         Func<IParseTree, object?> Visit,
         ref Dictionary<string, Func<object?[]?, object?>> _builtinFunctions,
         ref CallStack _stack,
-        ref  Dictionary<string, Function> _availableFunctions)
+        ref  Dictionary<string, Function> _availableFunctions,
+        string? name = null,
+        object?[]? arguments = null)
     {
-        var name = context.IDENTIFIER().GetText();
+        name = name ?? context.IDENTIFIER().GetText();
 
 
-        var arguments = context.expression().Select(Visit).ToArray();
+        arguments = arguments ?? context.expression().Select(Visit).ToArray();
 
         if (_builtinFunctions.ContainsKey(name))
             return _builtinFunctions[name](arguments);

@@ -8,6 +8,8 @@ public partial class Visitor
 {
     public override object? VisitFunction_call([NotNull] SpringParser.Function_callContext context)
     {
+        functionCallContext = context;
+
         return FunctionCaller.Call(
             ref context,
             Visit,

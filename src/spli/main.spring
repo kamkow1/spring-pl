@@ -1,14 +1,18 @@
 [][/]
 
+
+
 def main() {
 
     create_server();
 
     lambda: () => {
-        println "eoeoe";
-    } -> $roman_handler;
+        println "roman";
+    } -> $handler;
 
-    create_endpoint "/roman", $roman_handler -> $roman_endpoint;
+    create_endpoint "/roman", $handler;
 
     run_server();
+
+    println "eoeoe";
 }
