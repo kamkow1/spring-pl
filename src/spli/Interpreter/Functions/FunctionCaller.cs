@@ -10,7 +10,7 @@ public static class FunctionCaller
         Func<IParseTree, object?> Visit,
         ref Dictionary<string, Func<object?[]?, object?>> BuiltinFunctions,
         ref CallStack _stack,
-        ref  Dictionary<string, Function> _availableFunctions,
+        ref  Dictionary<string, Function> Functions,
         string? name = null,
         object?[]? arguments = null)
     {
@@ -29,7 +29,7 @@ public static class FunctionCaller
         if (previousAr.Members.ContainsKey(name))
             function = previousAr.Members[name] as Function;
         else
-            function = _availableFunctions[name];
+            function = Functions[name];
 
         var activationRecord = new ActivationRecord();
 

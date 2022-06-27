@@ -39,7 +39,7 @@ public class WebServerStartup
                         visitor.Visit,
                         ref visitor.BuiltinFunctions,
                         ref visitor._stack,
-                        ref visitor._availableFunctions,
+                        ref visitor.Functions,
                         endpoint.Handler.Name
                     );
                 });

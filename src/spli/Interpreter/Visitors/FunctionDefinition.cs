@@ -23,7 +23,7 @@ public partial class Visitor
 
         var function = new Function(name, parameters.ToArray(), statements);
 
-        _availableFunctions.Add(name, function);
+        Functions.Add(name, function);
 
         return null;
     }

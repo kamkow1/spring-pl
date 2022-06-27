@@ -15,7 +15,7 @@ public partial class Visitor
             Visit,
             ref BuiltinFunctions,
             ref _stack,
-            ref _availableFunctions
+            ref Functions
         );
     }
 }

@@ -13,7 +13,7 @@ namespace spli.Interpreter.Visitors;
 
 public partial class Visitor : SpringParserBaseVisitor<Object?>
 {
-    public Dictionary<string, Function> _availableFunctions = new();
+    public Dictionary<string, Function> Functions = new();
 
     public Dictionary<string, Func<object?[]?, object?>> BuiltinFunctions = new();
 
