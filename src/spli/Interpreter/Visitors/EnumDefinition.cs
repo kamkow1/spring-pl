@@ -25,7 +25,7 @@ public partial class Visitor
 
         var e = new EnumStructure(memberDictionary);
 
-        _enums.Add(name, e);
+        Enums.Add(name, e);
 
         return null;
     }

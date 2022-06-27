@@ -19,7 +19,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     public Dictionary<string, Structure> _structs = new();
 
-    public Dictionary<string, EnumStructure> _enums = new();
+    public Dictionary<string, EnumStructure> Enums = new();
 
     public CallStack _stack = new();
 
