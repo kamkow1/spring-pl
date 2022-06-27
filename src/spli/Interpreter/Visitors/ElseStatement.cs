@@ -9,7 +9,7 @@ public partial class Visitor
     {
         var activationRecord = new ActivationRecord();
 
-        _stack.Push(activationRecord);
+        RuntimeStack.Push(activationRecord);
         foreach (var statement in context.scope().statement())
         {
             if (statement.return_statement() is {} returnStatement)
@@ -17,6 +17,6 @@ public partial class Visitor
             Visit(statement);
         }
 
-        return _stack.Pop();
+        return RuntimeStack.Pop();
     }
 }

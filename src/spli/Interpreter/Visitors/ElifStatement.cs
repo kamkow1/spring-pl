@@ -14,14 +14,14 @@ public partial class Visitor
         {
             var activationRecord = new ActivationRecord();
 
-            _stack.Push(activationRecord);
+            RuntimeStack.Push(activationRecord);
             foreach (var statement in context.scope().statement())
             {
                 if (statement.return_statement() is {} returnStatement)
                     return Visit(returnStatement.expression());
                 Visit(statement);
             }
-            _stack.Pop();
+            RuntimeStack.Pop();
         }
 
         return null;

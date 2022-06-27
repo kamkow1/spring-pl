@@ -14,7 +14,7 @@ public partial class Visitor
             ref context,
             Visit,
             ref BuiltinFunctions,
-            ref _stack,
+            ref RuntimeStack,
             ref Functions
         );
     }

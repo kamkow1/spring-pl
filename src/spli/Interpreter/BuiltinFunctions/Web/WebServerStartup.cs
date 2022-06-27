@@ -38,7 +38,7 @@ public class WebServerStartup
                         ref visitor.functionCallContext,
                         visitor.Visit,
                         ref visitor.BuiltinFunctions,
-                        ref visitor._stack,
+                        ref visitor.RuntimeStack,
                         ref visitor.Functions,
                         endpoint.Handler.Name
                     );

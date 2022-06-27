@@ -9,11 +9,11 @@ public partial class Visitor
     {
         var activationRecord = new ActivationRecord();
 
-        _stack.Push(activationRecord);
+        RuntimeStack.Push(activationRecord);
 
         foreach (var statement in context.statement())
             Visit(statement);
             
-        return _stack.Pop();
+        return RuntimeStack.Pop();
     }
 }

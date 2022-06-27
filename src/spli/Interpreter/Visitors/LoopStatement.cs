@@ -20,7 +20,7 @@ public partial class Visitor
 
                 var activationRecord = new ActivationRecord();
 
-                _stack.Push(activationRecord);
+                RuntimeStack.Push(activationRecord);
                 foreach (var statement in context.scope().statement())
                 {
                     if (_shouldSkipCurrentIteration)
@@ -33,7 +33,7 @@ public partial class Visitor
                         return Visit(returnStatement.expression());
                     Visit(statement);
                 }
-                _stack.Pop();
+                RuntimeStack.Pop();
             }
         }
 
@@ -58,7 +58,7 @@ public partial class Visitor
                     if (loopConfig.IteratorName is not null)
                         activationRecord.SetItem(loopConfig.IteratorName, i);
 
-                    _stack.Push(activationRecord);
+                    RuntimeStack.Push(activationRecord);
                     foreach (var statement in context.scope().statement())
                     {
                         if (_shouldSkipCurrentIteration)
@@ -71,7 +71,7 @@ public partial class Visitor
                             return Visit(returnStatement.expression());
                         Visit(statement);
                     }
-                    _stack.Pop();
+                    RuntimeStack.Pop();
                 }
             }
             else
@@ -89,7 +89,7 @@ public partial class Visitor
                     if (loopConfig.IteratorName is not null)
                         activationRecord.SetItem(loopConfig.IteratorName, i);
                         
-                    _stack.Push(activationRecord);
+                    RuntimeStack.Push(activationRecord);
                     foreach (var statement in context.scope().statement())
                     {
                         if (_shouldSkipCurrentIteration)
@@ -103,7 +103,7 @@ public partial class Visitor
 
                         Visit(statement);
                     }
-                    _stack.Pop();
+                    RuntimeStack.Pop();
                 }   
             }
         }

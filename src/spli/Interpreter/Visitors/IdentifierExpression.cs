@@ -6,10 +6,10 @@ public partial class Visitor
 {
     public override object? VisitIdentifier_expr([NotNull] SpringParser.Identifier_exprContext context)
     {
-        var activationRecord = _stack.Peek();
+        var activationRecord = RuntimeStack.Peek();
         var name = context.IDENTIFIER().GetText();
 
-        var previousAr = _stack.GetPreviousArOrCurrent();
+        var previousAr = RuntimeStack.GetPreviousArOrCurrent();
 
         if (previousAr.Members.ContainsKey(name))
             return previousAr.GetItem(name);

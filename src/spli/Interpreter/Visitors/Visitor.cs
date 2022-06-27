@@ -21,7 +21,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     public Dictionary<string, EnumStructure> Enums = new();
 
-    public CallStack _stack = new();
+    public CallStack RuntimeStack = new();
 
     public bool LastConditionResult;
 

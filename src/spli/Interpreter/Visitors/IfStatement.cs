@@ -17,7 +17,7 @@ public partial class Visitor
         {
             var activationRecord = new ActivationRecord();
 
-            _stack.Push(activationRecord);
+            RuntimeStack.Push(activationRecord);
 
             foreach (var statement in statements)
             {
@@ -27,7 +27,7 @@ public partial class Visitor
                 Visit(statement);
             }
 
-            _stack.Pop();
+            RuntimeStack.Pop();
         }
 
         if (context.elif_statement() is {})

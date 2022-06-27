@@ -10,7 +10,7 @@ public partial class Visitor
 
         var value = Visit(context.expression());
 
-        var currentActivationRecord = _stack.Peek();
+        var currentActivationRecord = RuntimeStack.Peek();
 
         if (context.DECLARE() is {})
             currentActivationRecord.SetItem(name, value);

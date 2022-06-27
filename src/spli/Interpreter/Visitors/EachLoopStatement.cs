@@ -25,7 +25,7 @@ public partial class Visitor
                 activationRecord.SetItem(config.ItemName, item.value);
                 activationRecord.SetItem(config.OptionalIteratorName, item.i);
 
-                _stack.Push(activationRecord);
+                RuntimeStack.Push(activationRecord);
                 foreach (var statement in context.scope().statement())
                 {
                     if (statement.return_statement() is {} returnStatement)
@@ -39,7 +39,7 @@ public partial class Visitor
 
                     Visit(statement);
                 }
-                _stack.Pop();
+                RuntimeStack.Pop();
             }
         }
         else
@@ -56,7 +56,7 @@ public partial class Visitor
 
                 activationRecord.SetItem(config.ItemName, item);
 
-                _stack.Push(activationRecord);
+                RuntimeStack.Push(activationRecord);
                 foreach (var statement in context.scope().statement())
                 {
 
@@ -72,7 +72,7 @@ public partial class Visitor
 
                     Visit(statement);
                 }
-                _stack.Pop();
+                RuntimeStack.Pop();
             }
         }
 

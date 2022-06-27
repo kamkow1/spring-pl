@@ -9,7 +9,7 @@ public static class FunctionCaller
         ref SpringParser.Function_callContext context,
         Func<IParseTree, object?> Visit,
         ref Dictionary<string, Func<object?[]?, object?>> BuiltinFunctions,
-        ref CallStack _stack,
+        ref CallStack RuntimeStack,
         ref  Dictionary<string, Function> Functions,
         string? name = null,
         object?[]? arguments = null)
@@ -22,7 +22,7 @@ public static class FunctionCaller
         if (BuiltinFunctions.ContainsKey(name))
             return BuiltinFunctions[name](arguments);
 
-        var previousAr = _stack.Peek();
+        var previousAr = RuntimeStack.Peek();
 
         Function? function;
 
@@ -41,7 +41,7 @@ public static class FunctionCaller
             activationRecord.SetItem(parameter.value, arguments[parameter.i]);
         }
 
-        _stack.Push(activationRecord);
+        RuntimeStack.Push(activationRecord);
 
         foreach(var statement in function.Statements)
         {
@@ -51,7 +51,7 @@ public static class FunctionCaller
             Visit(statement);
         }
 
-        _stack.Pop();
+        RuntimeStack.Pop();
 
         return null;
     }

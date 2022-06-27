@@ -36,7 +36,7 @@ public partial class Visitor
             activationRecord.SetItem(parameter.value, arguments[parameter.i]);
         }
 
-        _stack.Push(activationRecord);
+        RuntimeStack.Push(activationRecord);
 
         foreach(var statement in method.Statements)
         {
@@ -46,7 +46,7 @@ public partial class Visitor
             Visit(statement);
         }
 
-        _stack.Pop();
+        RuntimeStack.Pop();
 
         return null;
     }
