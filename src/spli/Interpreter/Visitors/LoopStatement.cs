@@ -23,9 +23,9 @@ public partial class Visitor
                 RuntimeStack.Push(activationRecord);
                 foreach (var statement in context.scope().statement())
                 {
-                    if (_shouldSkipCurrentIteration)
+                    if (ShouldSkipCurrentIteration)
                     {
-                        _shouldSkipCurrentIteration = false;
+                        ShouldSkipCurrentIteration = false;
                         continue;
                     }
 
@@ -61,9 +61,9 @@ public partial class Visitor
                     RuntimeStack.Push(activationRecord);
                     foreach (var statement in context.scope().statement())
                     {
-                        if (_shouldSkipCurrentIteration)
+                        if (ShouldSkipCurrentIteration)
                         {
-                            _shouldSkipCurrentIteration = false;
+                            ShouldSkipCurrentIteration = false;
                             continue;
                         }
 
@@ -92,9 +92,9 @@ public partial class Visitor
                     RuntimeStack.Push(activationRecord);
                     foreach (var statement in context.scope().statement())
                     {
-                        if (_shouldSkipCurrentIteration)
+                        if (ShouldSkipCurrentIteration)
                         {
-                            _shouldSkipCurrentIteration = false;
+                            ShouldSkipCurrentIteration = false;
                             continue;
                         }
 

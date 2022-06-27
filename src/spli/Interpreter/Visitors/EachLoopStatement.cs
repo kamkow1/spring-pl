@@ -31,9 +31,9 @@ public partial class Visitor
                     if (statement.return_statement() is {} returnStatement)
                         return Visit(returnStatement.expression());
 
-                    if (_shouldSkipCurrentIteration)
+                    if (ShouldSkipCurrentIteration)
                     {
-                        _shouldSkipCurrentIteration = false;
+                        ShouldSkipCurrentIteration = false;
                         continue;
                     }
 
@@ -60,9 +60,9 @@ public partial class Visitor
                 foreach (var statement in context.scope().statement())
                 {
 
-                    if (_shouldSkipCurrentIteration)
+                    if (ShouldSkipCurrentIteration)
                     {
-                        _shouldSkipCurrentIteration = false;
+                        ShouldSkipCurrentIteration = false;
                         continue;
                     }
 

@@ -25,7 +25,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     public bool LastConditionResult;
 
-    public bool _shouldSkipCurrentIteration = false;
+    public bool ShouldSkipCurrentIteration = false;
 
     public bool _shouldExitCurrentLoop = false;
 

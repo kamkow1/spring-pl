@@ -6,7 +6,7 @@ public partial class Visitor
 {
     public override object? VisitSkip_iteration([NotNull] SpringParser.Skip_iterationContext context)
     {
-        _shouldSkipCurrentIteration = true;
+        ShouldSkipCurrentIteration = true;
         return null;
     }
 }
