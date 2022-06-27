@@ -5,7 +5,8 @@ public static class Initializer
 {
     public static Visitor Visitor = new();
 
-    public static void Run(string program, string filePath, string[] args)
+    public static void Run(string program, bool isVerbose,
+			   string filePath, string[] args)
     {
         try
         {
@@ -46,7 +47,12 @@ public static class Initializer
         }
         catch (System.Exception e)
         {
-            Console.WriteLine(e);
+            
+            if (isVerbose)
+                Console.WriteLine(e);
+            else
+                Console.WriteLine(e.Message);
+
             Environment.Exit(1);
         }
     }

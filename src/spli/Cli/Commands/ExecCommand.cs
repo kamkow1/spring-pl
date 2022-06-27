@@ -8,7 +8,7 @@ public static class ExecCommand
 
     public static string Description = "executes a .spring file";
 
-    public static int Execute(CommandArgument? filePathArgument, string[] args)
+    public static int Execute(CommandArgument? filePathArgument, bool isVerbose, string[] args)
     {
         var filePath = filePathArgument?.Value;
 
@@ -22,7 +22,7 @@ public static class ExecCommand
 
         var fileContent = File.ReadAllText(filePath);
 
-        Initializer.Run(fileContent, filePath, args);
+        Initializer.Run(fileContent, isVerbose, filePath, args);
 
         return 0;
     }
