@@ -15,7 +15,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 {
     public Dictionary<string, Function> _availableFunctions = new();
 
-    public Dictionary<string, Func<object?[]?, object?>> _builtinFunctions = new();
+    public Dictionary<string, Func<object?[]?, object?>> BuiltinFunctions = new();
 
     public Dictionary<string, Structure> _structs = new();
 
@@ -34,37 +34,37 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
     public Visitor()
     {
         // io
-        _builtinFunctions.Add("println",        new Func<object?[]?, object?>(args => Println(args)));
-        _builtinFunctions.Add("println_j",      new Func<object?[]?, object?>(args => PrintlnJson(args)));
-        _builtinFunctions.Add("print",          new Func<object?[]?, object?>(args => Print(args)));
-        _builtinFunctions.Add("read_console",   new Func<object?[]?, object?>(_ => ReadConsole()));
+        BuiltinFunctions.Add("println",        new Func<object?[]?, object?>(args => Println(args)));
+        BuiltinFunctions.Add("println_j",      new Func<object?[]?, object?>(args => PrintlnJson(args)));
+        BuiltinFunctions.Add("print",          new Func<object?[]?, object?>(args => Print(args)));
+        BuiltinFunctions.Add("read_console",   new Func<object?[]?, object?>(_ => ReadConsole()));
 
         // proc
-        _builtinFunctions.Add("create_proc",    new Func<object?[]?, object?>(args => CreateProc(args)));
-        _builtinFunctions.Add("start_proc",     new Func<object?[]?, object?>(args => StartProc(args)));
-        _builtinFunctions.Add("kill_proc",      new Func<object?[]?, object?>(args => KillProc(args)));
-        _builtinFunctions.Add("get_std_op",     new Func<object?[]?, object?>(args => GetStdOutput(args)));
+        BuiltinFunctions.Add("create_proc",    new Func<object?[]?, object?>(args => CreateProc(args)));
+        BuiltinFunctions.Add("start_proc",     new Func<object?[]?, object?>(args => StartProc(args)));
+        BuiltinFunctions.Add("kill_proc",      new Func<object?[]?, object?>(args => KillProc(args)));
+        BuiltinFunctions.Add("get_std_op",     new Func<object?[]?, object?>(args => GetStdOutput(args)));
 
         // fs
-        _builtinFunctions.Add("fs_read_file",   new Func<object?[]?, object?>(args => ReadFile(args)));
+        BuiltinFunctions.Add("fs_read_file",   new Func<object?[]?, object?>(args => ReadFile(args)));
 
         // type casting
-        _builtinFunctions.Add("int",            new Func<object?[]?, object?>(args => Int(args)));
-        _builtinFunctions.Add("float",          new Func<object?[]?, object?>(args => Float(args)));
-        _builtinFunctions.Add("string",         new Func<object?[]?, object?>(args => String(args)));
-        _builtinFunctions.Add("bool",           new Func<object?[]?, object?>(args => Bool(args)));
+        BuiltinFunctions.Add("int",            new Func<object?[]?, object?>(args => Int(args)));
+        BuiltinFunctions.Add("float",          new Func<object?[]?, object?>(args => Float(args)));
+        BuiltinFunctions.Add("string",         new Func<object?[]?, object?>(args => String(args)));
+        BuiltinFunctions.Add("bool",           new Func<object?[]?, object?>(args => Bool(args)));
 
         // array
-        _builtinFunctions.Add("arr_len",        new Func<object?[]?, object?>(args => ArrayLength(args)));
-        _builtinFunctions.Add("arr_last",       new Func<object?[]?, object?>(args => ArrayLast(args)));
-        _builtinFunctions.Add("arr_add",        new Func<object?[]?, object?>(args => ArrayAdd(args)));
-        _builtinFunctions.Add("arr_del",        new Func<object?[]?, object?>(args => ArrayDelete(args)));
-        _builtinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
+        BuiltinFunctions.Add("arr_len",        new Func<object?[]?, object?>(args => ArrayLength(args)));
+        BuiltinFunctions.Add("arr_last",       new Func<object?[]?, object?>(args => ArrayLast(args)));
+        BuiltinFunctions.Add("arr_add",        new Func<object?[]?, object?>(args => ArrayAdd(args)));
+        BuiltinFunctions.Add("arr_del",        new Func<object?[]?, object?>(args => ArrayDelete(args)));
+        BuiltinFunctions.Add("arr_pop",        new Func<object?[]?, object?>(args => ArrayPop(args)));
 
         // web
-        _builtinFunctions.Add("serve_static",   new Func<object?[]?, object?>(args => ServeStatic(args)));
-        _builtinFunctions.Add("create_server",  new Func<object?[]?, object?>(args => CreateServer(args)));
-        _builtinFunctions.Add("create_endpoint",new Func<object?[]?, object?>(args => CreateEndpoint(args)));
-        _builtinFunctions.Add("run_server",     new Func<object?[]?, object?>(_ => { RunServer(); return null; }));
+        BuiltinFunctions.Add("serve_static",   new Func<object?[]?, object?>(args => ServeStatic(args)));
+        BuiltinFunctions.Add("create_server",  new Func<object?[]?, object?>(args => CreateServer(args)));
+        BuiltinFunctions.Add("create_endpoint",new Func<object?[]?, object?>(args => CreateEndpoint(args)));
+        BuiltinFunctions.Add("run_server",     new Func<object?[]?, object?>(_ => { RunServer(); return null; }));
     }
 }

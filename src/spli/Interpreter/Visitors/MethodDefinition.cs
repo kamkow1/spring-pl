@@ -9,7 +9,7 @@ public partial class Visitor
     {
         var name = context.IDENTIFIER(0).GetText();
 
-        if (_builtinFunctions.ContainsKey(name))
+        if (BuiltinFunctions.ContainsKey(name))
             throw new Exception($"function {name} already exists");
 
         var parameters = new List<string>();

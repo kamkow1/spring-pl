@@ -8,7 +8,7 @@ public static class FunctionCaller
     public static object? Call(
         ref SpringParser.Function_callContext context,
         Func<IParseTree, object?> Visit,
-        ref Dictionary<string, Func<object?[]?, object?>> _builtinFunctions,
+        ref Dictionary<string, Func<object?[]?, object?>> BuiltinFunctions,
         ref CallStack _stack,
         ref  Dictionary<string, Function> _availableFunctions,
         string? name = null,
@@ -19,8 +19,8 @@ public static class FunctionCaller
 
         arguments = arguments ?? context.expression().Select(Visit).ToArray();
 
-        if (_builtinFunctions.ContainsKey(name))
-            return _builtinFunctions[name](arguments);
+        if (BuiltinFunctions.ContainsKey(name))
+            return BuiltinFunctions[name](arguments);
 
         var previousAr = _stack.Peek();
 

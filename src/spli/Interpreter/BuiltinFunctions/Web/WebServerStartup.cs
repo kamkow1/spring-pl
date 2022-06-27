@@ -37,7 +37,7 @@ public class WebServerStartup
                     FunctionCaller.Call(
                         ref visitor.functionCallContext,
                         visitor.Visit,
-                        ref visitor._builtinFunctions,
+                        ref visitor.BuiltinFunctions,
                         ref visitor._stack,
                         ref visitor._availableFunctions,
                         endpoint.Handler.Name

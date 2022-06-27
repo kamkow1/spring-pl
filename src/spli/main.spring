@@ -10,4 +10,4 @@ def main() {
     start_proc $proc;
 
     println get_std_op $proc;
-}
+}   

@@ -13,7 +13,7 @@ public partial class Visitor
         return FunctionCaller.Call(
             ref context,
             Visit,
-            ref _builtinFunctions,
+            ref BuiltinFunctions,
             ref _stack,
             ref _availableFunctions
         );
