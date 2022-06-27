@@ -17,7 +17,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     public Dictionary<string, Func<object?[]?, object?>> BuiltinFunctions = new();
 
-    public Dictionary<string, Structure> _structs = new();
+    public Dictionary<string, Structure> Structures = new();
 
     public Dictionary<string, EnumStructure> Enums = new();
 

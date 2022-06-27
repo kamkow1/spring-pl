@@ -21,7 +21,7 @@ public partial class Visitor
 
         var name = context.IDENTIFIER().GetText();
 
-        _structs.Add(name, new Structure(methodDictionary, propDictionary));
+        Structures.Add(name, new Structure(methodDictionary, propDictionary));
 
         return null;
     }

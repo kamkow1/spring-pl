@@ -9,7 +9,7 @@ public partial class Visitor
     {
         var name = context.IDENTIFIER().GetText();
 
-        var structure = _structs[name];
+        var structure = Structures[name];
 
         return new StructureInstance(structure, "self");
     }
