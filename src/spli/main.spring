@@ -3,5 +3,11 @@
 
 
 def main() {
-    println fs_read_file "./spli.csproj";
+    -- println fs_read_file "./spli.csproj";
+
+    create_proc "ls", "." -> $proc;
+
+    start_proc $proc;
+
+    println get_std_op $proc;
 }

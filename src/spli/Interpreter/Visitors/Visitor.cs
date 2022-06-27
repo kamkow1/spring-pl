@@ -3,6 +3,7 @@ using static spli.Interpreter.BuiltinFunctions.Casting.CastingFucntions;
 using static spli.Interpreter.BuiltinFunctions.Array.ArrayFunctions;
 using static spli.Interpreter.BuiltinFunctions.Web.WebFunctions;
 using static spli.Interpreter.BuiltinFunctions.FileSystem.FileSystemFunctions;
+using static spli.Interpreter.BuiltinFunctions.Process.ProcessFunctions;
 using spli.Interpreter.Functions;
 using spli.Interpreter.Enums;
 using spli.Interpreter.Struct;
@@ -36,6 +37,12 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         _builtinFunctions.Add("println",        new Func<object?[]?, object?>(args => Println(args)));
         _builtinFunctions.Add("print",          new Func<object?[]?, object?>(args => Print(args)));
         _builtinFunctions.Add("read_console",   new Func<object?[]?, object?>(_ => ReadConsole()));
+
+        // proc
+        _builtinFunctions.Add("create_proc",    new Func<object?[]?, object?>(args => CreateProc(args)));
+        _builtinFunctions.Add("start_proc",     new Func<object?[]?, object?>(args => StartProc(args)));
+        _builtinFunctions.Add("kill_proc",      new Func<object?[]?, object?>(args => KillProc(args)));
+        _builtinFunctions.Add("get_std_op",     new Func<object?[]?, object?>(args => GetStdOutput(args)));
 
         // fs
         _builtinFunctions.Add("fs_read_file",   new Func<object?[]?, object?>(args => ReadFile(args)));
