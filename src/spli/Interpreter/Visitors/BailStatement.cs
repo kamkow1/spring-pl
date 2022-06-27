@@ -6,7 +6,7 @@ public partial class Visitor
 {
     public override object? VisitBail_statement([NotNull] SpringParser.Bail_statementContext context)
     {
-        _shouldExitCurrentLoop = true;
+        ShouldExitCurrentLoop = true;
         return null;
     }
 }

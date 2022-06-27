@@ -12,9 +12,9 @@ public partial class Visitor
         {
             while(true)
             {
-                if (_shouldExitCurrentLoop)
+                if (ShouldExitCurrentLoop)
                 {
-                    _shouldExitCurrentLoop = false;
+                    ShouldExitCurrentLoop = false;
                     break;
                 }
 
@@ -47,9 +47,9 @@ public partial class Visitor
             {
                 for (var i = loopConfig.Left; i <= loopConfig.Right; ++i)
                 {
-                    if (_shouldExitCurrentLoop)
+                    if (ShouldExitCurrentLoop)
                     {
-                        _shouldExitCurrentLoop = false;
+                        ShouldExitCurrentLoop = false;
                         break;
                     }
 
@@ -78,9 +78,9 @@ public partial class Visitor
             {
                 for (var i = loopConfig.Left; i >= loopConfig.Right; --i)
                 {
-                    if (_shouldExitCurrentLoop)
+                    if (ShouldExitCurrentLoop)
                     {
-                        _shouldExitCurrentLoop = false;
+                        ShouldExitCurrentLoop = false;
                         break;
                     }
 

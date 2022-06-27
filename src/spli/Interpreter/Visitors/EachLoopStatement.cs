@@ -14,9 +14,9 @@ public partial class Visitor
         {
             foreach(var item in config.Array.Select((value, i) => new { value, i }))
             {
-                if (_shouldExitCurrentLoop)
+                if (ShouldExitCurrentLoop)
                 {
-                    _shouldExitCurrentLoop = false;
+                    ShouldExitCurrentLoop= false;
                     break;
                 }
 
@@ -46,9 +46,9 @@ public partial class Visitor
         {
             foreach(var item in config.Array)
             {
-                if (_shouldExitCurrentLoop)
+                if (ShouldExitCurrentLoop)
                 {
-                    _shouldExitCurrentLoop = false;
+                    ShouldExitCurrentLoop= false;
                     break;
                 }
 
