@@ -35,7 +35,7 @@ public class WebServerStartup
                     Console.WriteLine(endpoint.Handler.Name);
 
                     FunctionCaller.Call(
-                        ref visitor.functionCallContext,
+                        ref visitor.functionCallContext!,
                         visitor.Visit,
                         ref visitor.BuiltinFunctions,
                         ref visitor.RuntimeStack,
