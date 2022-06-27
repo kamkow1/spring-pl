@@ -28,7 +28,7 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
 
     public bool _shouldExitCurrentLoop = false;
 
-    public SpringParser.Function_callContext functionCallContext;
+    public SpringParser.Function_callContext? functionCallContext;
 
     public Visitor()
     {
