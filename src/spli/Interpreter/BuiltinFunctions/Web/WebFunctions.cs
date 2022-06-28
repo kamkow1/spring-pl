@@ -35,11 +35,11 @@ public static class WebFunctions
     public static object? CreateEndpoint(object?[]? args)
     {
         var path = (string)args![0]!;
-        var function = (Function)args![1]!;
+		var functionName = (string)args![1]!;
 
 	//	Console.WriteLine(JsonConvert.SerializeObject(function.Statements.Select(s => s.GetText()).ToArray()));
 
-        _server.CreateEndpoint(path, function);
+        _server.CreateEndpoint(path, functionName);
         return null;
     }
     public static void RunServer()

@@ -6,9 +6,9 @@ public class EndpointConfig
 {
     public string Path { get; set; }
 
-    public Function Handler { get; set; }
+    public string Handler { get; set; }
 
-    public EndpointConfig(string path, Function handler)
+    public EndpointConfig(string path, string handler)
     {
         Path = path;
         Handler = handler;

@@ -41,7 +41,7 @@ access_mod      :   PUB
 bail_statement  :   BAIL TERMINATOR;
 
 skip_iteration  :   SKIP_ITERATION TERMINATOR;
-            
+
 each_loop_statement:     EACH expression DO scope END;
 
 loop_statement  :   LOOP expression? DO scope END;
@@ -75,7 +75,8 @@ expression      :   constant                                    #ConstantExpress
                 |   NEW IDENTIFIER                              #NewStructExpression
                 |   expression DOT ((IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN)) #MethodCallExpression
                 |   IDENTIFIER DOT IDENTIFIER                   #EnumMemberAccessExpression
-                |   LAMBDA COLON ((IDENTIFIER (COMMA IDENTIFIER)*)? | LPAREN RPAREN) LONG_ARROW DO scope END #LambdaExpression;
+                |   LAMBDA COLON ((IDENTIFIER (COMMA IDENTIFIER)*)? | LPAREN RPAREN) LONG_ARROW DO scope END #LambdaExpression
+				|	AT IDENTIFIER								#IdentifierTextExpression;
 
 function_call   :   (IDENTIFIER (expression (COMMA expression)*)) | (IDENTIFIER LPAREN RPAREN);
 
@@ -100,7 +101,7 @@ compare_oper    :   EQUAL
                 |   LESS
                 |   LESS_EQUAL;
 
-binary_oper     :   AND 
+binary_oper     :   AND
                 |   OR;
 
 function_def    :   DEF IDENTIFIER LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN DO scope END;

@@ -56,6 +56,7 @@ POW                 : '^';
 COLON               : ':';
 PIPE                : '|';
 PERCENT             : '%';
+AT					: '@';
 
 IDENTIFIER          : ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A' .. 'Z' | '0'..'9' | '_')*;
 WHITESPACE          : [ \r\n\t]+    -> skip;

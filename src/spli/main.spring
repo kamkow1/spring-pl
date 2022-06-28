@@ -1,11 +1,13 @@
 [][/]
 
-def get_str() {
-	return "eooeoe";
-}
-
 def main() {
-	get_str() -> $str;
+	create_server();
 
-	"eoeoeo" -> $str;
+	lambda: () => {
+		println "demo";
+	} -> $handler;
+
+	create_endpoint "/demo", "handler";
+
+	run_server();
 }
