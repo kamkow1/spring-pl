@@ -13,6 +13,8 @@ public partial class Visitor
 
         if (index is int && collection is object?[])
 			return ((object?[])collection)[(int)index];
+        else if (index is string && collection is Dictionary<string, object?>)
+            return ((Dictionary<string, object?>)collection)[(string)index];
 		else if (index is string && collection is Dictionary<string, Microsoft.Extensions.Primitives.StringValues>)
 			return ((Dictionary<string, Microsoft.Extensions.Primitives.StringValues>)collection)[(string)index];
 		else throw new Exception($"unable to use expression {index} to access collection {collection}");

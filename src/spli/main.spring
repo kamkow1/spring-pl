@@ -5,9 +5,17 @@ def main() {
 
 	lambda: query => {
 		println $query["roman"];
-	} -> $handler;
+	} -> $demo_get_handler;
 
-	create_endpoint "/demo", "handler";
+	lambda: query, body => {
+		println $body["roman"];
+	} -> $demo_post_handler;
+
+	create_endpoint "/demo-get", "get", "demo_get_handler";
+
+	create_endpoint "/demo-post", "post", "demo_post_handler";
+
+
 
 	run_server();
 }

@@ -8,9 +8,12 @@ public class EndpointConfig
 
     public string Handler { get; set; }
 
-    public EndpointConfig(string path, string handler)
+    public string HttpVerb { get; set; }
+
+    public EndpointConfig(string path, string handler, string httpVerb)
     {
         Path = path;
         Handler = handler;
+        HttpVerb = httpVerb;
     }
 }

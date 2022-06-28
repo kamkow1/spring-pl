@@ -14,7 +14,8 @@ public static class FunctionCaller
         ref  Dictionary<string, Function> Functions,
         string? name = null,
         object?[]? arguments = null,
-        Dictionary<string, Microsoft.Extensions.Primitives.StringValues>? query = null)
+        Dictionary<string, Microsoft.Extensions.Primitives.StringValues>? query = null,
+        Dictionary<string, object?>? body = null)
     {
         name = name ?? context.IDENTIFIER().GetText();
 
@@ -39,7 +40,16 @@ public static class FunctionCaller
             if (activationRecord.CheckIfMemberExists(parameter.value))
                 continue;
 
-            activationRecord.SetItem(parameter.value, query is not null ? query : arguments[parameter.i]);
+	        if (query is not null)
+		        activationRecord.SetItem(parameter.value, query);
+
+	        if (body is not null)
+		        activationRecord.SetItem(parameter.value, body);
+	        
+            if (body is null && query is null)
+		        activationRecord.SetItem(parameter.value, arguments[parameter.i]);
+
+            //activationRecord.SetItem(parameter.value, query is not null ? query : arguments[parameter.i]);
         }
 
         RuntimeStack.Push(activationRecord);
