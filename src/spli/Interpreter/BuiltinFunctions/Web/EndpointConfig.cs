@@ -10,16 +10,12 @@ public class EndpointConfig
 
     public string HttpVerb { get; set; }
 
-    public string ResponseType { get; set; }
-
     public EndpointConfig(string path, 
                         string handler, 
-                        string httpVerb,
-                        string responseType)
+                        string httpVerb)
     {
         Path = path;
         Handler = handler;
         HttpVerb = httpVerb;
-        ResponseType = responseType;
     }
 }

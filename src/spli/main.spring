@@ -6,14 +6,15 @@ def main() {
 	lambda: _, body => {
 		$body["roman"] -> $roman;
 		println $roman;
-		return $roman;
+		
+		return create_resp $roman, "bad";
+
 	} -> $demo_post_handler;
 
 	create_endpoint 
 		"/demo-post", 
 		"post", 
-		"demo_post_handler", 
-		"ok";
+		"demo_post_handler";
 
 	run_server();
 }

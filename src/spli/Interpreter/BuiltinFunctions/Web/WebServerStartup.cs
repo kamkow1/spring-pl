@@ -90,10 +90,14 @@ public class WebServerStartup
 
                         Console.WriteLine("returned: " + JsonConvert.SerializeObject(response, Formatting.Indented));
 
-                        if (string.Equals(endpoint.ResponseType, "ok", StringComparison.OrdinalIgnoreCase))
+                        return response;
+
+                       /* if (string.Equals(endpoint.ResponseType, "ok", StringComparison.OrdinalIgnoreCase))
                             return Results.Ok(response);
                         
-                        throw new Exception($"unimplemented response type {endpoint.ResponseType}");
+                        if (string.Equals(endpoint.ResponseType, "bad", StringComparison.OrdinalIgnoreCase))
+                            return Results.Ok(response);*/
+                        
                     });
                 }
             });

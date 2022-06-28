@@ -70,5 +70,6 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         BuiltinFunctions.Add("create_server",  new Func<object?[]?, object?>(args => CreateServer(args)));
         BuiltinFunctions.Add("create_endpoint",new Func<object?[]?, object?>(args => CreateEndpoint(args)));
         BuiltinFunctions.Add("run_server",     new Func<object?[]?, object?>(_ => { RunServer(); return null; }));
+        BuiltinFunctions.Add("create_resp",    new Func<object?[]?, object?>(args => CreateResponse(args)));
     }
 }

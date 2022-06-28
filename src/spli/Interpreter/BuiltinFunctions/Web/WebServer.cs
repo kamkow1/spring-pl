@@ -19,14 +19,12 @@ public class WebServer
 
     public void CreateEndpoint(string path, 
                             string handler, 
-                            string httpVerb, 
-                            string responseType)
+                            string httpVerb)
     {
         WebServerStartup.AddEndpoint(WebServerStartup.Endpoints, 
                                     new EndpointConfig(path, 
                                                         handler, 
-                                                        httpVerb, 
-                                                        responseType));
+                                                        httpVerb));
     }
 
     public void RunServer()
