@@ -1,11 +1,11 @@
 [][/]
 
-
+def get_str() {
+	return "eooeoe";
+}
 
 def main() {
-	lambda: () => {
-		println "eoeo";
-	} -> $fnc;
+	get_str() -> $str;
 
-	println type_of $fnc;
+	"eoeoeo" -> $str;
 }
