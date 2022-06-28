@@ -1,4 +1,5 @@
 using Antlr4.Runtime.Tree;
+using Microsoft.AspNetCore.Http;
 using spli.Interpreter.Stack;
 
 namespace spli.Interpreter.Functions;
@@ -12,7 +13,8 @@ public static class FunctionCaller
         ref CallStack RuntimeStack,
         ref  Dictionary<string, Function> Functions,
         string? name = null,
-        object?[]? arguments = null)
+        object?[]? arguments = null,
+        Dictionary<string, Microsoft.Extensions.Primitives.StringValues>? query = null)
     {
         name = name ?? context.IDENTIFIER().GetText();
 
@@ -37,7 +39,7 @@ public static class FunctionCaller
             if (activationRecord.CheckIfMemberExists(parameter.value))
                 continue;
 
-            activationRecord.SetItem(parameter.value, arguments[parameter.i]);
+            activationRecord.SetItem(parameter.value, query is not null ? query : arguments[parameter.i]);
         }
 
         RuntimeStack.Push(activationRecord);

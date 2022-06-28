@@ -3,8 +3,8 @@
 def main() {
 	create_server();
 
-	lambda: () => {
-		println "demo";
+	lambda: query => {
+		println $query["roman"];
 	} -> $handler;
 
 	create_endpoint "/demo", "handler";

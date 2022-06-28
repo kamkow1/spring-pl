@@ -23,11 +23,14 @@ public class WebServerStartup
         {
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet(endpoint.Path, () =>
+                endpoints.MapGet(endpoint.Path, (HttpRequest request) =>
                 {
                     var visitor = Initializer.Visitor;
 
-					Console.WriteLine("handler name " + endpoint.Handler);
+					var queryParameters = request.Query;
+
+                    var parameters = queryParameters.Keys.Cast<string>()
+                        .ToDictionary(k => k, v => queryParameters[v]);
 
                     FunctionCaller.Call(
                         ref visitor.functionCallContext!,
@@ -35,7 +38,9 @@ public class WebServerStartup
                         ref visitor.BuiltinFunctions,
                         ref visitor.RuntimeStack,
                         ref visitor.Functions,
-						endpoint.Handler
+						endpoint.Handler,
+                        null,
+						parameters
                     );
                 });
             });
