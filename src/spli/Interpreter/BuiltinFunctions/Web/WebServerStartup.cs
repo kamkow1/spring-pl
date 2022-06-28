@@ -23,27 +23,21 @@ public class WebServerStartup
         {
             Console.WriteLine("endp");
 
-            app.UseEndpoints(endpoints => 
+            app.UseEndpoints(endpoints =>
             {
-                Console.WriteLine("u e");
-                endpoints.MapGet(endpoint.Path, () => 
+                endpoints.MapGet(endpoint.Path, () =>
                 {
-                    Console.WriteLine("get");
-
                     var visitor = Initializer.Visitor;
-
-                    Console.WriteLine(endpoint.Handler.Name);
 
                     FunctionCaller.Call(
                         ref visitor.functionCallContext!,
                         visitor.Visit,
                         ref visitor.BuiltinFunctions,
                         ref visitor.RuntimeStack,
-                        ref visitor.Functions,
-                        endpoint.Handler.Name
+                        ref visitor.Functions
                     );
                 });
-            }); 
+            });
         }
     }
 }

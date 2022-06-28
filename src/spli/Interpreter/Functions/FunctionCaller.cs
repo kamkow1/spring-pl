@@ -16,7 +16,6 @@ public static class FunctionCaller
     {
         name = name ?? context.IDENTIFIER().GetText();
 
-
         arguments = arguments ?? context.expression().Select(Visit).ToArray();
 
         if (BuiltinFunctions.ContainsKey(name))

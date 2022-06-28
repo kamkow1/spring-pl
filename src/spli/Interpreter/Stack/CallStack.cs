@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace spli.Interpreter.Stack;
 
 public class CallStack
@@ -32,5 +34,11 @@ public class CallStack
     public int GetLength()
     {
         return _activationRecords.Count;
+    }
+
+    public override string ToString()
+    {
+    	return JsonConvert.SerializeObject(_activationRecords.Select(ar => ar.Members)
+				.Select(m => m.Keys.ToArray()).ToArray());
     }
 }

@@ -37,6 +37,8 @@ public static class WebFunctions
         var path = (string)args![0]!;
         var function = (Function)args![1]!;
 
+	//	Console.WriteLine(JsonConvert.SerializeObject(function.Statements.Select(s => s.GetText()).ToArray()));
+
         _server.CreateEndpoint(path, function);
         return null;
     }
