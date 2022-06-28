@@ -3,21 +3,9 @@
 
 
 def main() {
-    -- println fs_read_file "./spli.csproj";
-
-    /* create_proc "ls", "." -> $proc;
-
-    start_proc $proc;
-
-    println get_std_op $proc; */
-
-	create_server();
-
 	lambda: () => {
-		println "test";
-	} -> $handler;
+		println "eoeo";
+	} -> $fnc;
 
-	create_endpoint "/test", $handler;
-
-	run_server();
+	println type_of $fnc;
 }

@@ -4,6 +4,7 @@ using static spli.Interpreter.BuiltinFunctions.Array.ArrayFunctions;
 using static spli.Interpreter.BuiltinFunctions.Web.WebFunctions;
 using static spli.Interpreter.BuiltinFunctions.FileSystem.FileSystemFunctions;
 using static spli.Interpreter.BuiltinFunctions.Process.ProcessFunctions;
+using static spli.Interpreter.BuiltinFunctions.Type.TypeFunctions;
 using spli.Interpreter.Functions;
 using spli.Interpreter.Enums;
 using spli.Interpreter.Struct;
@@ -53,6 +54,9 @@ public partial class Visitor : SpringParserBaseVisitor<Object?>
         BuiltinFunctions.Add("float",          new Func<object?[]?, object?>(args => Float(args)));
         BuiltinFunctions.Add("string",         new Func<object?[]?, object?>(args => String(args)));
         BuiltinFunctions.Add("bool",           new Func<object?[]?, object?>(args => Bool(args)));
+
+		// type
+		BuiltinFunctions.Add("type_of", 	   new Func<object?[]?, object?>(args => TypeOf(args)));
 
         // array
         BuiltinFunctions.Add("arr_len",        new Func<object?[]?, object?>(args => ArrayLength(args)));
