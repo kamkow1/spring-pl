@@ -3,19 +3,17 @@
 def main() {
 	create_server();
 
-	lambda: query => {
-		println $query["roman"];
-	} -> $demo_get_handler;
-
-	lambda: query, body => {
-		println $body["roman"];
+	lambda: _, body => {
+		$body["roman"] -> $roman;
+		println $roman;
+		return $roman;
 	} -> $demo_post_handler;
 
-	create_endpoint "/demo-get", "get", "demo_get_handler";
-
-	create_endpoint "/demo-post", "post", "demo_post_handler";
-
-
+	create_endpoint 
+		"/demo-post", 
+		"post", 
+		"demo_post_handler", 
+		"ok";
 
 	run_server();
 }

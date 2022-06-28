@@ -55,6 +55,8 @@ public class WebServerStartup
                             null,
 				    		parameters
                         );
+
+
                     });
                 }
 
@@ -74,7 +76,7 @@ public class WebServerStartup
                         var parameters = queryParameters.Keys.Cast<string>()
                             .ToDictionary(k => k, v => queryParameters[v]);
 
-                        FunctionCaller.Call(
+                        var response = FunctionCaller.Call(
                             ref visitor.functionCallContext!,
                             visitor.Visit,
                             ref visitor.BuiltinFunctions,
@@ -83,8 +85,15 @@ public class WebServerStartup
 				    		endpoint.Handler,
                             null,
 				    		parameters,
-                            bodyObj
+                            bodyObj!
                         );
+
+                        Console.WriteLine("returned: " + JsonConvert.SerializeObject(response, Formatting.Indented));
+
+                        if (string.Equals(endpoint.ResponseType, "ok", StringComparison.OrdinalIgnoreCase))
+                            return Results.Ok(response);
+                        
+                        throw new Exception($"unimplemented response type {endpoint.ResponseType}");
                     });
                 }
             });
